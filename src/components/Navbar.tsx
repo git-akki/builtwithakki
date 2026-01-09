@@ -6,7 +6,7 @@ import { fadeInUp, staggerContainer } from "../utils/animations";
 const navLinks = [
   { href: "#services", label: "Services" },
   { href: "#projects", label: "Projects" },
-  { href: "#articles", label: "Articles" },
+
   { href: "#about", label: "About" },
 ];
 
