@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Calculator, DollarSign, Clock, Users, Sparkles, ArrowDown } from "lucide-react";
 import { fadeInUp, staggerContainer } from "../utils/animations";
 
@@ -29,17 +29,17 @@ const RoiCalculator = () => {
     };
 
     return (
-        <section className="py-24 sm:py-32 relative overflow-hidden">
+        <section className="py-16 sm:py-32 relative overflow-hidden">
             <div className="container">
-                <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 items-center">
+                <div className="flex flex-col lg:flex-row gap-8 lg:gap-24 items-center">
                     {/* Left Column: Inputs */}
                     <div className="flex-1 w-full space-y-8">
                         {/* Header */}
                         <motion.div
                             initial="hidden"
                             whileInView="visible"
-                            variants={fadeInUp}
-                            viewport={{ once: true }}
+                            variants={fadeInUp as unknown as Variants}
+                            viewport={{ once: false }}
                             className="space-y-4">
                             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10">
                                 <Calculator className="w-4 h-4 text-primary" />
@@ -60,17 +60,17 @@ const RoiCalculator = () => {
                         <motion.div
                             initial="hidden"
                             whileInView="visible"
-                            variants={staggerContainer}
-                            viewport={{ once: true }}
+                            variants={staggerContainer as unknown as Variants}
+                            viewport={{ once: false }}
                             className="space-y-8 p-6 sm:p-8 rounded-3xl border border-border bg-card/50"
                         >
                             {/* Team Size Input */}
-                            <motion.div variants={fadeInUp} className="space-y-4">
-                                <div className="flex justify-between items-center">
+                            <motion.div variants={fadeInUp as unknown as Variants} className="space-y-4">
+                                <div className="flex justify-between items-center flex-wrap gap-2">
                                     <label htmlFor="team-size" className="flex items-center gap-2 font-medium">
                                         <Users className="w-4 h-4 text-primary" /> Team Size
                                     </label>
-                                    <span className="font-bold text-primary">{teamSize} people</span>
+                                    <span className="font-bold text-primary bg-primary/10 px-3 py-1 rounded-md text-sm">{teamSize} people</span>
                                 </div>
                                 <input
                                     id="team-size"
@@ -84,12 +84,12 @@ const RoiCalculator = () => {
                             </motion.div>
 
                             {/* Hours Input */}
-                            <motion.div variants={fadeInUp} className="space-y-4">
-                                <div className="flex justify-between items-center">
+                            <motion.div variants={fadeInUp as unknown as Variants} className="space-y-4">
+                                <div className="flex justify-between items-center flex-wrap gap-2">
                                     <label htmlFor="hours" className="flex items-center gap-2 font-medium">
                                         <Clock className="w-4 h-4 text-primary" /> Weekly Hours / Person
                                     </label>
-                                    <span className="font-bold text-primary">{hoursPerWeek} hrs</span>
+                                    <span className="font-bold text-primary bg-primary/10 px-3 py-1 rounded-md text-sm">{hoursPerWeek} hrs</span>
                                 </div>
                                 <p className="text-xs text-muted-foreground">
                                     Time spent on repetitive data entry, emails, or admin.
@@ -106,12 +106,12 @@ const RoiCalculator = () => {
                             </motion.div>
 
                             {/* Rate Input */}
-                            <motion.div variants={fadeInUp} className="space-y-4">
-                                <div className="flex justify-between items-center">
+                            <motion.div variants={fadeInUp as unknown as Variants} className="space-y-4">
+                                <div className="flex justify-between items-center flex-wrap gap-2">
                                     <label htmlFor="rate" className="flex items-center gap-2 font-medium">
                                         <DollarSign className="w-4 h-4 text-primary" /> Avg. Hourly Rate
                                     </label>
-                                    <span className="font-bold text-primary">${hourlyRate}/hr</span>
+                                    <span className="font-bold text-primary bg-primary/10 px-3 py-1 rounded-md text-sm">${hourlyRate}/hr</span>
                                 </div>
                                 <input
                                     id="rate"
@@ -131,8 +131,8 @@ const RoiCalculator = () => {
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
-                        variants={fadeInUp}
-                        viewport={{ once: true }}
+                        variants={fadeInUp as unknown as Variants}
+                        viewport={{ once: false }}
                         className="flex-1 w-full"
                     >
                         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-card via-card to-primary/10 border border-primary/20 p-8 sm:p-12 text-center shadow-2xl shadow-primary/5">

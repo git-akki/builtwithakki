@@ -1,5 +1,5 @@
 import { ShieldCheck, Lightbulb, History } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { fadeInUp, staggerContainer } from "../utils/animations";
 
 const BookingTrust = () => {
@@ -25,14 +25,14 @@ const BookingTrust = () => {
         <section className="py-12 bg-card/30 border-y border-border/40">
             <div className="container">
                 <motion.div
-                    variants={staggerContainer}
+                    variants={staggerContainer as unknown as Variants}
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
                     className="grid grid-cols-1 md:grid-cols-3 gap-8"
                 >
                     {benefits.map((benefit, index) => (
-                        <motion.div variants={fadeInUp} key={index} className="flex flex-col items-center text-center gap-3">
+                        <motion.div variants={fadeInUp as unknown as Variants} key={index} className="flex flex-col items-center text-center gap-3">
                             <div className="p-3 rounded-full bg-primary/10 text-primary">
                                 <benefit.icon className="w-6 h-6" />
                             </div>

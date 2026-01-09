@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { fadeInUp, staggerContainer } from "../utils/animations";
@@ -29,14 +29,14 @@ const Navbar = () => {
 
           {/* Desktop Nav */}
           <motion.div
-            variants={staggerContainer}
+            variants={staggerContainer as unknown as Variants}
             initial="hidden"
             animate="visible"
             className="hidden md:flex items-center gap-8"
           >
             {navLinks.map((link) => (
               <motion.a
-                variants={fadeInUp}
+                variants={fadeInUp as unknown as Variants}
                 key={link.href}
                 href={link.href}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -45,7 +45,7 @@ const Navbar = () => {
               </motion.a>
             ))}
             <motion.a
-              variants={fadeInUp}
+              variants={fadeInUp as unknown as Variants}
               href="#book-call"
               className="px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-lg transition-colors hover:bg-primary/90"
             >

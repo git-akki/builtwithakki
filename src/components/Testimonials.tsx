@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Quote, Star } from "lucide-react";
 import { fadeInUp, staggerContainer } from "../utils/animations";
 
@@ -36,8 +36,8 @@ const Testimonials = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          variants={fadeInUp}
-          viewport={{ once: true }}
+          variants={fadeInUp as unknown as Variants}
+          viewport={{ once: false }}
           className="text-center mb-16"
         >
           <span className="inline-block px-4 py-1.5 text-sm font-medium text-primary border border-primary/20 rounded-full mb-4">
@@ -52,16 +52,16 @@ const Testimonials = () => {
         </motion.div>
 
         <motion.div
-          variants={staggerContainer}
+          variants={staggerContainer as unknown as Variants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           className="grid md:grid-cols-2 gap-6"
         >
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
-              variants={fadeInUp}
+              variants={fadeInUp as unknown as Variants}
               className="relative p-6 sm:p-8 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors"
             >
               <Quote className="absolute top-6 right-6 w-8 h-8 text-primary/20" />

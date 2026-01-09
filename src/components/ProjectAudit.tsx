@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CheckCircle2, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { fadeInUp, staggerContainer } from "../utils/animations";
 
 const ProjectAudit = () => {
@@ -34,8 +34,8 @@ const ProjectAudit = () => {
                 <motion.div
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={fadeInUp}
+                    viewport={{ once: false }}
+                    variants={fadeInUp as unknown as Variants}
                     className="text-center mb-12 space-y-4">
                     <h2 className="text-3xl sm:text-4xl font-bold">
                         Is Your Project <span className="text-primary">Ready?</span>
@@ -47,16 +47,16 @@ const ProjectAudit = () => {
 
                 <div className="bg-card border border-border rounded-3xl p-8 sm:p-12 shadow-xl">
                     <motion.div
-                        variants={staggerContainer}
+                        variants={staggerContainer as unknown as Variants}
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true }}
+                        viewport={{ once: false }}
                         className="space-y-4"
                     >
                         {checklist.map((item, index) => (
                             <motion.button
                                 key={index}
-                                variants={fadeInUp}
+                                variants={fadeInUp as unknown as Variants}
                                 type="button"
                                 role="checkbox"
                                 aria-checked={!!checkedItems[index]}
@@ -80,8 +80,8 @@ const ProjectAudit = () => {
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={fadeInUp}
+                        viewport={{ once: false }}
+                        variants={fadeInUp as unknown as Variants}
                         className="mt-12 pt-8 border-t border-border">
                         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
                             <div>

@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants, Transition } from "framer-motion";
 import { Mail, Linkedin, Github, ArrowUpRight, Check } from "lucide-react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useEffect, useState } from "react";
@@ -102,16 +102,16 @@ const Contact = () => {
         <div className="grid lg:grid-cols-2 gap-16 items-start max-w-6xl mx-auto">
           {/* LEFT */}
           <motion.div
-            variants={staggerContainer}
+            variants={staggerContainer as unknown as Variants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             className="flex flex-col gap-6"
           >
             {contactLinks.map((link, index) => (
               <motion.a
                 key={index}
-                variants={fadeInUp}
+                variants={fadeInUp as unknown as Variants}
                 href={link.href}
                 target={link.href.startsWith("http") ? "_blank" : undefined}
                 rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
@@ -133,9 +133,9 @@ const Contact = () => {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            variants={fadeInUp}
-            viewport={{ once: true }}
-            transition={{ ...smoothTransition, delay: 0.2 }}
+            variants={fadeInUp as unknown as Variants}
+            viewport={{ once: false }}
+            transition={{ ...smoothTransition, delay: 0.2 } as unknown as Transition}
             className="relative p-8 bg-card rounded-2xl border border-border"
           >
             {/* WAITING OVERLAY */}

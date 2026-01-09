@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { ArrowUpRight, Globe, Bot, ShoppingCart, Zap } from "lucide-react";
 import { fadeInUp, staggerContainer } from "../utils/animations";
 
@@ -9,7 +9,7 @@ const projects = [
     category: "E-commerce",
     description: "A Switzerland-based unisex grooming brand e-commerce platform with optimized purchase flow, performance enhancements, and conversion-focused UX design.",
     technologies: ["WordPress", "WooCommerce", "Custom Plugins", "SEO"],
-    link: "modogrooming.com",
+    link: "https://modomgrooming.com",
   },
   {
     icon: Bot,
@@ -25,7 +25,7 @@ const projects = [
     category: "Web Application",
     description: "Full-stack analytics dashboard with real-time data visualization, user authentication, and role-based access control for a B2C startup.",
     technologies: ["Wordpress", "Elementor", "Hostinger", "PostgreSQL"],
-    link: "hair-mastery.com",
+    link: "https://hair-mastery.com",
   },
 ];
 
@@ -36,7 +36,7 @@ const Projects = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          variants={fadeInUp}
+          variants={fadeInUp as unknown as Variants}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
@@ -52,7 +52,7 @@ const Projects = () => {
         </motion.div>
 
         <motion.div
-          variants={staggerContainer}
+          variants={staggerContainer as unknown as Variants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -61,8 +61,10 @@ const Projects = () => {
           {projects.map((project, index) => (
             <motion.a
               key={index}
-              variants={fadeInUp}
+              variants={fadeInUp as unknown as Variants}
               href={project.link}
+              target={project.link.startsWith("http") ? "_blank" : undefined}
+              rel={project.link.startsWith("http") ? "noopener noreferrer" : undefined}
               onClick={(e) => project.link === "#" && e.preventDefault()}
               className={`group relative p-6 sm:p-8 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors block ${project.link === "#" ? "cursor-default" : "cursor-pointer"}`}
             >
