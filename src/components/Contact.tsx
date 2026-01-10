@@ -84,11 +84,16 @@ const Contact = () => {
         body: JSON.stringify(data),
       });
 
-      if (!response.ok) throw new Error();
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error("API Error:", errorData);
+        throw new Error(errorData.error || "Failed to send message");
+      }
 
       setIsSent(true);
       reset();
-    } catch {
+    } catch (error) {
+      console.error("Submission Error:", error);
       setError("email", {
         type: "manual",
         message: "Something went wrong. Please try again.",
