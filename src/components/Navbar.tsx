@@ -1,18 +1,8 @@
 import { motion, Variants } from "framer-motion";
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
-import { fadeInUp, staggerContainer } from "../utils/animations";
-
-const navLinks = [
-  { href: "#services", label: "Services" },
-  { href: "#projects", label: "Projects" },
-
-  { href: "#about", label: "About" },
-];
+import { fadeInUp } from "../utils/animations";
+import ClawBotIcon from "./ClawBotIcon";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
     <motion.header
       initial={{ opacity: 0, filter: "blur(10px)" }}
@@ -23,75 +13,22 @@ const Navbar = () => {
       <div className="container">
         <nav className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#" className="text-xl font-bold tracking-tight">
+          <a href="#" className="flex items-center gap-2 text-xl font-bold tracking-tight">
+            <ClawBotIcon size={28} color="#FF5722" />
             AY<span className="text-primary">.</span>
           </a>
 
-          {/* Desktop Nav */}
-          <motion.div
-            variants={staggerContainer as unknown as Variants}
+          {/* Book a Call */}
+          <motion.a
+            variants={fadeInUp as unknown as Variants}
             initial="hidden"
             animate="visible"
-            className="hidden md:flex items-center gap-8"
+            href="#book-call"
+            className="px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-lg transition-colors hover:bg-primary/90"
           >
-            {navLinks.map((link) => (
-              <motion.a
-                variants={fadeInUp as unknown as Variants}
-                key={link.href}
-                href={link.href}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {link.label}
-              </motion.a>
-            ))}
-            <motion.a
-              variants={fadeInUp as unknown as Variants}
-              href="#book-call"
-              className="px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-lg transition-colors hover:bg-primary/90"
-            >
-              Book a Call
-            </motion.a>
-          </motion.div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-foreground"
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+            Book a Call
+          </motion.a>
         </nav>
-
-        {/* Mobile Nav */}
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden py-4 border-t border-border"
-          >
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {link.label}
-                </a>
-              ))}
-              <a
-                href="#book-call"
-                onClick={() => setIsOpen(false)}
-                className="inline-flex items-center justify-center px-4 py-2 bg-primary text-primary-foreground font-medium rounded-lg"
-              >
-                Book a Call
-              </a>
-            </div>
-          </motion.div>
-        )}
       </div>
     </motion.header>
   );
