@@ -14,7 +14,7 @@ const Navbar = () => {
         <nav className="flex items-center justify-between h-16">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2 text-xl font-bold tracking-tight">
-            <ClawBotIcon size={28} color="#FF5722" />
+            <ClawBotIcon size={28} color="#2563EB" />
             AY<span className="text-primary">.</span>
           </a>
 

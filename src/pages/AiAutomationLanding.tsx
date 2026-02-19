@@ -48,7 +48,7 @@ import { CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart as 
 // Custom theme wrapper to enforce OpenClaw colors locally
 const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="openclaw-theme min-h-screen bg-background text-foreground selection:bg-orange-500/20 selection:text-orange-200 font-sans antialiased overflow-x-hidden">
+    <div className="openclaw-theme min-h-screen bg-background text-foreground selection:bg-blue-500/20 selection:text-blue-100 font-sans antialiased overflow-x-hidden">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
@@ -58,7 +58,7 @@ const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
         }
 
         .openclaw-theme {
-          --primary: 16 96% 57%; /* #FF5722 */
+          --primary: 217 91% 60%;
           --primary-foreground: 0 0% 100%;
           --background: 240 10% 3.9%; /* Zinc 950 */
           --foreground: 0 0% 98%;
@@ -74,7 +74,7 @@ const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
           --destructive-foreground: 0 0% 98%;
           --border: 240 3.7% 15.9%;
           --input: 240 3.7% 15.9%;
-          --ring: 16 96% 57%;
+          --ring: 217 91% 60%;
           --radius: 0.75rem;
         }
         

@@ -50,6 +50,16 @@ const projects = [
     link: "#",
   },
   {
+    icon: Globe,
+    title: "Visitor Management System (VMS)",
+    category: "Web Application • Operations",
+    status: "In Use",
+    description:
+      "A visitor management platform for a Houston-based company that lets guests book appointments via email, gives reception a clear dashboard of daily visits, and routes each meeting to the right person in the organization.",
+    technologies: ["MongoDB", "Express.js", "React", "Node.js", "Email Automation"],
+    link: "#",
+  },
+  {
     icon: ShoppingCart,
     title: "Wig Shop",
     category: "E-commerce",
