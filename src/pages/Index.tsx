@@ -7,7 +7,6 @@ import About from "@/components/About";
 import BookCall from "@/components/BookCall";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import RoiCalculator from "@/components/RoiCalculator";
 import BookingTrust from "@/components/BookingTrust";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import ProjectAudit from "@/components/ProjectAudit";
@@ -20,7 +19,6 @@ const Index = () => {
         <Services />
         <Projects />
         <Testimonials />
-        <RoiCalculator />
         <ProjectAudit />
 
         <About />

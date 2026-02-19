@@ -143,24 +143,6 @@ const Contact = () => {
             transition={{ ...smoothTransition, delay: 0.2 } as unknown as Transition}
             className="relative p-8 bg-card rounded-2xl border border-border"
           >
-            {/* WAITING OVERLAY */}
-            <AnimatePresence>
-              {isSubmitting && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="absolute inset-0 z-10 bg-card/70 backdrop-blur-sm rounded-2xl flex items-center justify-center"
-                >
-                  <motion.span
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    className="w-10 h-10 border-2 border-primary/30 border-t-primary rounded-full"
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
-
             <h3 className="text-xl font-semibold mb-6">Send me a message</h3>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -221,11 +203,21 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={isSubmitting || isSent}
-                className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg flex items-center justify-center gap-2 transition-colors transition-opacity disabled:opacity-80"
+                className="relative w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg flex items-center justify-center gap-2 overflow-hidden transition-colors transition-opacity disabled:opacity-80"
               >
+                {isSubmitting && (
+                  <div className="absolute inset-x-0 bottom-0 h-1 bg-primary-foreground/20">
+                    <motion.div
+                      className="h-full w-1/2 bg-primary-foreground"
+                      initial={{ x: "-100%" }}
+                      animate={{ x: "100%" }}
+                      transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                  </div>
+                )}
                 <AnimatePresence mode="wait">
                   {isSubmitting ? (
-                    <motion.div className="flex items-center gap-2">
+                    <motion.div key="sending" className="flex items-center gap-2">
                       <motion.span
                         animate={{ rotate: 360 }}
                         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
@@ -234,12 +226,12 @@ const Contact = () => {
                       Sending...
                     </motion.div>
                   ) : isSent ? (
-                    <motion.div className="flex items-center gap-2">
+                    <motion.div key="sent" className="flex items-center gap-2">
                       <Check className="w-5 h-5" />
                       Sent
                     </motion.div>
                   ) : (
-                    <span>Send Message</span>
+                    <motion.span key="default">Send Message</motion.span>
                   )}
                 </AnimatePresence>
               </button>

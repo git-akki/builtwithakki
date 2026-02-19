@@ -4,27 +4,38 @@ import { fadeInUp, staggerContainer } from "../utils/animations";
 
 const testimonials = [
   {
-    name: "Sarah Mitchell",
-    role: "Founder, TechStart",
-    content: "Akash transformed our outdated website into a conversion machine. Within 3 months, our lead generation increased by 180%. His attention to detail and understanding of user experience is exceptional.",
+    name: "Pablo Keumin",
+    role: "Founder, Hair Mastery (E-learning)",
+    content:
+      "Akash helped us turn Hair Mastery into a clean, fast and trustworthy e-learning platform. Students find it easier to discover courses, and we get compliments on the experience every week.",
     rating: 5,
   },
   {
-    name: "Marcus Chen",
-    role: "CEO, GrowthLabs",
-    content: "The AI automation system Akash built saved us 20+ hours per week. He understood our workflow challenges and delivered a solution that exceeded expectations. Highly recommend for any AI projects.",
+    name: "Oliver Rust",
+    role: "Co-founder, Hair Mastery (E-learning)",
+    content:
+      "From structure to small UX details, everything was thought through. The build process was smooth, communication was clear, and the final result reflects our brand exactly how we imagined.",
     rating: 5,
   },
   {
-    name: "Elena Rodriguez",
-    role: "E-commerce Director, StyleHub",
-    content: "Our e-commerce platform needed serious performance optimization. Akash improved our page load times by 60% and the checkout flow redesign increased conversions significantly.",
+    name: "Marco Netali",
+    role: "Founder, Modom Grooming (Switzerland)",
+    content:
+      "Our e-commerce felt heavy before. After Akash’s work, pages load faster, checkout is simpler, and customers actually tell us the store feels premium. It had a clear impact on sales.",
     rating: 5,
   },
   {
-    name: "James Wilson",
-    role: "CTO, DataFlow Inc",
-    content: "Working with Akash on our MCP server implementation was seamless. He has deep knowledge of AI systems and delivered a robust, scalable solution that our team could easily maintain.",
+    name: "Harsh",
+    role: "Founder, Vantalo (Social Media & Web Agency)",
+    content:
+      "The portfolio site Akash built gives us a strong first impression with prospects. It explains what we do clearly and makes it easy for leads to reach out, which is exactly what we needed.",
+    rating: 5,
+  },
+  {
+    name: "Shadab",
+    role: "Owner, Hair Looks (Salon, India)",
+    content:
+      "Akash understood the salon business quickly and translated it into a simple, modern online presence. Clients can see our work, trust our brand more, and bookings have become more consistent.",
     rating: 5,
   },
 ];

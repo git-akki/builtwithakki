@@ -82,7 +82,7 @@ const Hero = () => {
           >
             {[
               { value: "3+", label: "Years Experience" },
-              { value: "50+", label: "Projects Delivered" },
+              { value: "10+", label: "Projects Delivered" },
               { value: "100%", label: "Client Satisfaction" },
             ].map((stat, index) => (
               <motion.div key={index} variants={fadeInUp as unknown as Variants} className="text-center">
