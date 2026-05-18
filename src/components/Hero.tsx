@@ -1,5 +1,5 @@
 import { motion, Variants } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Zap } from "lucide-react";
 import { fadeInUp, staggerContainer } from "../utils/animations";
 
 const Hero = () => {
@@ -39,9 +39,7 @@ const Hero = () => {
             variants={fadeInUp as unknown as Variants}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
           >
-            Building <span className="text-primary">Digital Systems</span>
-            <br />
-            That Drive Growth
+            Your Business <span className="text-primary">on Autopilot</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -49,8 +47,8 @@ const Hero = () => {
             variants={fadeInUp as unknown as Variants}
             className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 text-balance"
           >
-            Web & AI Systems Engineer helping founders and startups build high-performing websites,
-            scalable applications, and AI-powered automation.
+            I build AI automation systems that replace manual ops, cut AI costs by 97%,
+            and run your content pipeline while you sleep.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -63,34 +61,26 @@ const Hero = () => {
               href="#book-call"
               className="group inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium rounded-lg transition-colors duration-300 hover:bg-primary/90"
             >
-              Book a Call
+              <Zap className="w-4 h-4" />
+              Get a Free AI Audit
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </motion.a>
             <motion.a
               variants={fadeInUp as unknown as Variants}
-              href="#services"
+              href="#case-studies"
               className="inline-flex items-center gap-2 px-6 py-3 border border-border text-foreground font-medium rounded-lg transition-colors duration-300 hover:bg-card hover:border-primary/50"
             >
-              View Services
+              See Case Studies
             </motion.a>
           </motion.div>
 
-          {/* Quick stats */}
-          <motion.div
-            variants={staggerContainer as unknown as Variants}
-            className="flex items-center justify-center gap-8 sm:gap-12 mt-16 pt-16 border-t border-border/50"
+          {/* Quick proof line */}
+          <motion.p
+            variants={fadeInUp as unknown as Variants}
+            className="mt-8 text-sm text-muted-foreground/70"
           >
-            {[
-              { value: "3+", label: "Years Experience" },
-              { value: "10+", label: "Projects Delivered" },
-              { value: "100%", label: "Client Satisfaction" },
-            ].map((stat, index) => (
-              <motion.div key={index} variants={fadeInUp as unknown as Variants} className="text-center">
-                <div className="text-2xl sm:text-3xl font-bold text-foreground">{stat.value}</div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
-              </motion.div>
-            ))}
-          </motion.div>
+            Overnight research runs for $6 · 97% AI cost reduction · 36K-view content systems
+          </motion.p>
         </motion.div>
       </div>
     </section>
