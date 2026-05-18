@@ -1,34 +1,61 @@
 import { motion, Variants } from "framer-motion";
-import { Bot, Megaphone, Globe } from "lucide-react";
+import { Bot, Megaphone, Globe, Check } from "lucide-react";
 import { fadeInUp, staggerContainer } from "../utils/animations";
 
 const services = [
   {
     icon: Bot,
+    tag: "Most Popular",
     title: "AI Automation Systems",
-    pain: "Your team is doing the same manual tasks every day — order tracking, lead follow-up, content scheduling, appointment booking.",
-    solution: "I build multi-agent AI systems that handle those tasks 24/7, at near-zero cost.",
-    result: "One client's 6-hour overnight workflow now costs $6 to run.",
+    pain: "Drowning in manual ops: order tracking, lead follow-up, appointment booking, daily research.",
+    solution: "I build multi-agent AI systems that handle all of it 24/7 — at near-zero running cost.",
+    features: [
+      "Multi-agent orchestration (hub + spokes)",
+      "Slack / WhatsApp / email integrations",
+      "Churn rescue + lead capture agents",
+      "Full audit trail & cost controls",
+    ],
+    result: "One client's 6-hour workflow: $6 to run overnight.",
+    resultColor: "text-green-400",
+    highlight: true,
   },
   {
     icon: Megaphone,
+    tag: "Content Growth",
     title: "Content Marketing Pipeline",
-    pain: "You're posting inconsistently, losing leads between DMs and email, and spending hours on content that doesn't compound.",
-    solution: "I build end-to-end pipelines: IG automation → lead capture → email sequences → analytics.",
-    result: "36K views, 533 saves, 59 new followers from a single post using this system.",
+    pain: "Posting inconsistently, losing DMs, spending hours on content that doesn't compound.",
+    solution: "End-to-end pipeline: IG automation → lead capture → email sequences → analytics.",
+    features: [
+      "NotebookLM + MCP content engine",
+      "ManyChat keyword automation",
+      "MailerLite sequence integration",
+      "One post triggers the whole funnel",
+    ],
+    result: "36K views, 533 saves, 59 followers — from one post.",
+    resultColor: "text-purple-400",
+    highlight: false,
   },
   {
     icon: Globe,
+    tag: "Web & SaaS",
     title: "Website & SaaS Build",
-    pain: "Your website looks fine but doesn't convert. Or you need a custom app and can't afford a full dev team.",
-    solution: "I build conversion-focused sites and full-stack apps using React, Supabase, and modern tooling.",
-    result: "From landing page to production SaaS — designed to close, not just impress.",
+    pain: "Site looks fine but doesn't convert. Or you need a custom app and can't afford a team.",
+    solution: "Conversion-focused sites and full-stack apps using React, Supabase, and modern tooling.",
+    features: [
+      "React + Supabase / MERN stack",
+      "Booking systems & e-commerce",
+      "WordPress + WooCommerce",
+      "Designed to close, not just impress",
+    ],
+    result: "7+ live projects across 3 countries.",
+    resultColor: "text-primary",
+    highlight: false,
   },
 ];
 
 const Services = () => {
   return (
-    <section id="services" className="py-24 sm:py-32 bg-card/30">
+    <section id="services" className="py-24 sm:py-32">
       <div className="container">
         <motion.div
           initial="hidden"
@@ -37,14 +64,14 @@ const Services = () => {
           viewport={{ once: false }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-1.5 text-sm font-medium text-primary border border-primary/20 rounded-full mb-4">
+          <span className="inline-block px-3 py-1 text-xs font-medium text-primary border border-primary/20 bg-primary/5 rounded-full mb-4 uppercase tracking-wider">
             Services
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-            Three Ways I Can Help
+            Pick Your Biggest Pain Point
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Pick the one that matches your biggest pain right now.
+            Three focused offerings. Each built to solve one specific problem completely.
           </p>
         </motion.div>
 
@@ -59,19 +86,73 @@ const Services = () => {
             <motion.div
               key={index}
               variants={fadeInUp as unknown as Variants}
-              className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors flex flex-col"
+              className={`relative group flex flex-col rounded-2xl border p-6 transition-all duration-300 ${
+                service.highlight
+                  ? "bg-primary/5 border-primary/30 hover:border-primary/60 shadow-lg shadow-primary/10"
+                  : "bg-card border-border hover:border-primary/30 hover:shadow-md"
+              }`}
             >
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 text-primary mb-4 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                <service.icon className="w-6 h-6" />
+              {service.highlight && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-widest bg-primary text-primary-foreground rounded-full">
+                    {service.tag}
+                  </span>
+                </div>
+              )}
+              {!service.highlight && (
+                <span className="text-[10px] font-semibold text-primary/70 uppercase tracking-widest mb-4 block">
+                  {service.tag}
+                </span>
+              )}
+              {service.highlight && <div className="mt-3" />}
+
+              <div className={`inline-flex w-10 h-10 rounded-xl items-center justify-center mb-5 transition-colors ${
+                service.highlight
+                  ? "bg-primary/20 border border-primary/30"
+                  : "bg-muted border border-border group-hover:bg-primary/10 group-hover:border-primary/20"
+              }`}>
+                <service.icon className={`w-5 h-5 ${service.highlight ? "text-primary" : "text-muted-foreground group-hover:text-primary"} transition-colors`} />
               </div>
-              <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
-              <p className="text-sm text-muted-foreground mb-3 leading-relaxed">{service.pain}</p>
-              <p className="text-sm text-foreground mb-4 leading-relaxed">{service.solution}</p>
-              <div className="mt-auto pt-4 border-t border-border">
-                <p className="text-sm font-medium text-primary">{service.result}</p>
+
+              <h3 className="text-lg font-bold mb-2">{service.title}</h3>
+              <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{service.pain}</p>
+              <p className="text-sm text-foreground mb-5 leading-relaxed">{service.solution}</p>
+
+              <ul className="space-y-2 mb-6 flex-1">
+                {service.features.map((f, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm">
+                    <Check className="w-3.5 h-3.5 text-primary flex-shrink-0 mt-0.5" />
+                    <span className="text-muted-foreground">{f}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className={`pt-4 border-t ${service.highlight ? "border-primary/20" : "border-border"}`}>
+                <p className={`text-sm font-semibold ${service.resultColor}`}>{service.result}</p>
               </div>
             </motion.div>
           ))}
+        </motion.div>
+
+        <motion.div
+          variants={fadeInUp as unknown as Variants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="text-center mt-12"
+        >
+          <a
+            href="#book-call"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
+          >
+            Start with a Free Audit
+            <motion.span
+              animate={{ x: [0, 4, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              →
+            </motion.span>
+          </a>
         </motion.div>
       </div>
     </section>
