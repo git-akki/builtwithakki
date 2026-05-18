@@ -12,6 +12,7 @@ import BookingTrust from "@/components/BookingTrust";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
+import PortfolioChat from "@/components/PortfolioChat";
 
 const Index = () => {
   return (
@@ -31,6 +32,7 @@ const Index = () => {
         <Contact />
       </main>
       <StickyMobileCTA />
+      <PortfolioChat />
       <Footer />
     </div>
   );
