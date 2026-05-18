@@ -1,37 +1,28 @@
 import { motion, Variants } from "framer-motion";
-import { Code2, Bot, Zap, Globe, Database, Settings } from "lucide-react";
+import { Bot, Megaphone, Globe } from "lucide-react";
 import { fadeInUp, staggerContainer } from "../utils/animations";
 
 const services = [
   {
-    icon: Globe,
-    title: "Web Development",
-    description: "High-performing websites and web applications built with modern frameworks. Conversion-focused design that drives real business results.",
-  },
-  {
     icon: Bot,
-    title: "AI Agents & Automation",
-    description: "Custom AI agents, MCP servers, and automation workflows that reduce repetitive work and improve decision-making.",
+    title: "AI Automation Systems",
+    pain: "Your team is doing the same manual tasks every day — order tracking, lead follow-up, content scheduling, appointment booking.",
+    solution: "I build multi-agent AI systems that handle those tasks 24/7, at near-zero cost.",
+    result: "One client's 6-hour overnight workflow now costs $6 to run.",
   },
   {
-    icon: Code2,
-    title: "Custom Applications",
-    description: "Scalable web applications built with React, Next.js, and modern tech stacks. From MVPs to production-ready systems.",
+    icon: Megaphone,
+    title: "Content Marketing Pipeline",
+    pain: "You're posting inconsistently, losing leads between DMs and email, and spending hours on content that doesn't compound.",
+    solution: "I build end-to-end pipelines: IG automation → lead capture → email sequences → analytics.",
+    result: "36K views, 533 saves, 59 new followers from a single post using this system.",
   },
   {
-    icon: Database,
-    title: "E-Commerce Solutions",
-    description: "Conversion-optimized e-commerce platforms that scale with your business. Performance, UX, and purchase flow optimization.",
-  },
-  {
-    icon: Zap,
-    title: "Technical SEO",
-    description: "Improve search visibility and website performance through technical optimization and ongoing maintenance.",
-  },
-  {
-    icon: Settings,
-    title: "System Integration",
-    description: "Connect your tools and automate workflows. API integrations, data pipelines, and system architecture.",
+    icon: Globe,
+    title: "Website & SaaS Build",
+    pain: "Your website looks fine but doesn't convert. Or you need a custom app and can't afford a full dev team.",
+    solution: "I build conversion-focused sites and full-stack apps using React, Supabase, and modern tooling.",
+    result: "From landing page to production SaaS — designed to close, not just impress.",
   },
 ];
 
@@ -50,10 +41,10 @@ const Services = () => {
             Services
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-            What I Build
+            Three Ways I Can Help
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Digital systems designed for results — not just for launch. Every solution is built to drive conversions, streamline operations, and support growth.
+            Pick the one that matches your biggest pain right now.
           </p>
         </motion.div>
 
@@ -62,19 +53,23 @@ const Services = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
         >
           {services.map((service, index) => (
             <motion.div
               key={index}
               variants={fadeInUp as unknown as Variants}
-              className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors"
+              className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors flex flex-col"
             >
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 text-primary mb-4 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                 <service.icon className="w-6 h-6" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-              <p className="text-muted-foreground">{service.description}</p>
+              <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
+              <p className="text-sm text-muted-foreground mb-3 leading-relaxed">{service.pain}</p>
+              <p className="text-sm text-foreground mb-4 leading-relaxed">{service.solution}</p>
+              <div className="mt-auto pt-4 border-t border-border">
+                <p className="text-sm font-medium text-primary">{service.result}</p>
+              </div>
             </motion.div>
           ))}
         </motion.div>

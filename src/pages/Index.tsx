@@ -2,15 +2,17 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import SocialProofBar from "@/components/SocialProofBar";
 import Services from "@/components/Services";
-import Projects from "@/components/Projects";
+import CaseStudies from "@/components/CaseStudies";
+import HowItWorks from "@/components/HowItWorks";
 import Testimonials from "@/components/Testimonials";
+import AiAuditCTA from "@/components/AiAuditCTA";
 import About from "@/components/About";
 import BookCall from "@/components/BookCall";
+import BookingTrust from "@/components/BookingTrust";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import BookingTrust from "@/components/BookingTrust";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
-import ProjectAudit from "@/components/ProjectAudit";
+
 const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -19,10 +21,10 @@ const Index = () => {
         <Hero />
         <SocialProofBar />
         <Services />
-        <Projects />
+        <CaseStudies />
+        <HowItWorks />
         <Testimonials />
-        <ProjectAudit />
-
+        <AiAuditCTA />
         <About />
         <BookCall />
         <BookingTrust />
