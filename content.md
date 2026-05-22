@@ -27,7 +27,7 @@ Most businesses deploying AI agents don't realize they're paying a **92% ineffic
 
 **What this means for your business:**
 
-- **$2,400/month** in AI costs when it should cost **$180**
+- **$2,200/month** in AI costs when it should cost **$180**
 - Engineering time wasted troubleshooting instead of building
 - Scope limited by cost instead of ambition
 - Competitive disadvantage while rivals automate at scale
