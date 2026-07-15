@@ -13,7 +13,7 @@ interface Stat {
 
 const stats: Stat[] = [
   { value: "97%",   label: "AI cost reduction",          sub: "vs. unoptimised setups", numeric: 97,  prefix: "",  suffix: "%" },
-  { value: "$6",    label: "Overnight research run",      sub: "6 hrs · 50 prospects",   numeric: 6,   prefix: "$", suffix: "" },
+  { value: "$27",   label: "Overnight research run",      sub: "6 hrs · 50 prospects",   numeric: 27,  prefix: "$", suffix: "" },
   { value: "32",    label: "Business problems automated", sub: "out of 42 identified",   numeric: 32,  prefix: "",  suffix: "" },
   { value: "36K",   label: "Views from one post",         sub: "content pipeline output", numeric: 36,  prefix: "",  suffix: "K" },
 ];

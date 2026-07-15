@@ -109,7 +109,7 @@ const Hero = () => {
           >
             {[
               { num: "97%", label: "cost reduction" },
-              { num: "$6",  label: "overnight run" },
+              { num: "$27", label: "overnight run" },
               { num: "36K", label: "views / post" },
             ].map(({ num, label }) => (
               <span key={num} className="flex items-baseline gap-1.5">

@@ -8,7 +8,7 @@ const services = [
     label: "Most requested",
     title: "AI Automation",
     desc: "Multi-agent systems that handle your daily ops — orders, leads, appointments — 24/7 at near-zero cost.",
-    proof: "$6 overnight run · 32/42 problems solved",
+    proof: "$27 overnight run · 32/42 problems solved",
     items: ["Hub-and-spoke agent architecture", "Slack / WhatsApp / email integrations", "Cost controls & audit trail"],
     accent: true,
   },

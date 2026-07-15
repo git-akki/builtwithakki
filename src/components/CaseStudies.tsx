@@ -10,10 +10,10 @@ const caseStudies = [
     summary:
       "Hours of daily order and lead coordination across WhatsApp, IG, and email — now handled overnight by a multi-agent system.",
     detail:
-      "OpenClaw multi-agent system: hub-and-spoke architecture with Atlas as orchestrator. Vendor/order Slack bot, churn rescue agent, IG lead pipeline, and email PDF compiler. One overnight run: 6 hours of research, outreach to 50 prospects, full file organisation — total cost $6.",
+      "OpenClaw multi-agent system: hub-and-spoke architecture with Atlas as orchestrator. Vendor/order Slack bot, churn rescue agent, IG lead pipeline, and email PDF compiler. One overnight run: 6 hours of research, outreach to 50 prospects, full file organisation — total cost $27.",
     systems: ["OpenClaw multi-agent", "Slack order bot", "Churn rescue", "IG lead pipeline"],
     metrics: [
-      { value: "$6", label: "Overnight run cost" },
+      { value: "$27", label: "Overnight run cost" },
       { value: "32/42", label: "Problems automated" },
       { value: "0", label: "Manual ops remaining" },
     ],
