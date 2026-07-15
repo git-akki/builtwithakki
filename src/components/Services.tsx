@@ -60,7 +60,7 @@ const Services = () => (
           <motion.div
             key={i}
             variants={fadeInUp as unknown as Variants}
-            className={`relative flex flex-col rounded-2xl border p-7 transition-all duration-300 group ${
+            className={`card-elevated relative flex flex-col rounded-2xl border p-7 group ${
               s.accent
                 ? "border-primary/25 bg-primary/[0.03] hover:border-primary/45"
                 : "border-border/60 bg-card hover:border-primary/25"

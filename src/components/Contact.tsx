@@ -120,7 +120,7 @@ const Contact = () => {
                 href={link.href}
                 target={link.href.startsWith("http") ? "_blank" : undefined}
                 rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors"
+                className="card-elevated group p-6 bg-card rounded-xl border border-border hover:border-primary/50"
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
@@ -141,7 +141,7 @@ const Contact = () => {
             variants={fadeInUp as unknown as Variants}
             viewport={{ once: false }}
             transition={{ ...smoothTransition, delay: 0.2 } as unknown as Transition}
-            className="relative p-8 bg-card rounded-2xl border border-border"
+            className="relative p-8 bg-card rounded-2xl border border-border [box-shadow:var(--shadow-card)]"
           >
             <h3 className="text-xl font-semibold mb-6">Send me a message</h3>
 
@@ -203,7 +203,7 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={isSubmitting || isSent}
-                className="relative w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg flex items-center justify-center gap-2 overflow-hidden transition-colors transition-opacity disabled:opacity-80"
+                className="btn-premium relative w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg flex items-center justify-center gap-2 overflow-hidden disabled:opacity-80"
               >
                 {isSubmitting && (
                   <div className="absolute inset-x-0 bottom-0 h-1 bg-primary-foreground/20">

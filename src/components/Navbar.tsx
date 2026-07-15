@@ -15,7 +15,7 @@ const Navbar = () => {
         <nav className="flex items-center justify-between h-16">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2 text-xl font-bold tracking-tight">
-            <ClawBotIcon size={28} color="#2563EB" />
+            <ClawBotIcon size={28} className="text-primary" />
             AY<span className="text-primary">.</span>
           </a>
 
@@ -27,7 +27,7 @@ const Navbar = () => {
               initial="hidden"
               animate="visible"
               href="#book-call"
-              className="px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-lg transition-colors hover:bg-primary/90"
+              className="btn-premium px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-lg"
             >
               Book a Call
             </motion.a>

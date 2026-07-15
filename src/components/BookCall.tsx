@@ -47,7 +47,7 @@ const BookCall = () => {
               <motion.button
                 variants={fadeInUp as unknown as Variants}
                 onClick={handleBookingClick}
-                className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-xl transition-colors duration-300 hover:bg-primary/90"
+                className="btn-premium group inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-xl"
               >
                 Schedule a Call
                 <ArrowUpRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

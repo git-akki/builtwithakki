@@ -76,7 +76,7 @@ const AiAuditCTA = () => {
             </p>
             <a
               href="#book-call"
-              className="group inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg transition-colors hover:bg-primary/90 text-lg"
+              className="btn-premium group inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-xl text-lg"
             >
               Book Your Free AI Audit
               <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />

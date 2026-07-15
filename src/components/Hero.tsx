@@ -83,7 +83,7 @@ const Hero = () => {
           >
             <MagneticButton
               href="#book-call"
-              className="shimmer glow-pulse group inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-medium rounded-xl shadow-lg shadow-primary/20 transition-all duration-200"
+              className="shimmer btn-premium group inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-medium rounded-xl"
             >
               <Zap className="w-3.5 h-3.5" />
               Get a Free AI Audit
