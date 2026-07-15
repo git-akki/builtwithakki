@@ -7,19 +7,19 @@ const steps = [
     number: "01",
     icon: Search,
     title: "Free AI Audit",
-    description: "We review your current setup — what you're doing manually, what AI tools you're paying for, and where you're bleeding time and money. 30 minutes. No commitment.",
+    description: "30 minutes on where you're bleeding time and money. No commitment.",
   },
   {
     number: "02",
     icon: Map,
     title: "System Design",
-    description: "I map out the exact automation stack for your business. What to build, in what order, with real cost and time estimates. You leave knowing exactly what you're getting.",
+    description: "The exact stack to build, in what order, with real cost estimates.",
   },
   {
     number: "03",
     icon: Rocket,
     title: "Build & Hand Off",
-    description: "I build it, test it, and hand you a system that runs while you sleep. Full documentation included. Ongoing support optional.",
+    description: "Built, tested, documented. It runs while you sleep.",
   },
 ];
 
@@ -41,7 +41,7 @@ const HowItWorks = () => {
             How It Works
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Three steps from "I think I need automation" to a system running in production.
+            Three steps from first call to a system in production.
           </p>
         </motion.div>
 

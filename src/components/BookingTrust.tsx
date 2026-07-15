@@ -16,8 +16,8 @@ const BookingTrust = () => {
         },
         {
             icon: History,
-            title: "Proven Expertise",
-            description: "Specialized in high-performance web & AI systems that drive revenue."
+            title: "Proven Track Record",
+            description: "7+ live systems across 3 countries — every one still in production."
         }
     ];
 

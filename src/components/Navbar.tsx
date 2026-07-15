@@ -1,6 +1,7 @@
 import { motion, Variants } from "framer-motion";
 import { fadeInUp } from "../utils/animations";
 import ClawBotIcon from "./ClawBotIcon";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   return (
@@ -18,16 +19,19 @@ const Navbar = () => {
             AY<span className="text-primary">.</span>
           </a>
 
-          {/* Book a Call */}
-          <motion.a
-            variants={fadeInUp as unknown as Variants}
-            initial="hidden"
-            animate="visible"
-            href="#book-call"
-            className="px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-lg transition-colors hover:bg-primary/90"
-          >
-            Book a Call
-          </motion.a>
+          {/* Theme toggle + Book a Call */}
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <motion.a
+              variants={fadeInUp as unknown as Variants}
+              initial="hidden"
+              animate="visible"
+              href="#book-call"
+              className="px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-lg transition-colors hover:bg-primary/90"
+            >
+              Book a Call
+            </motion.a>
+          </div>
         </nav>
       </div>
     </motion.header>

@@ -5,6 +5,7 @@ import Services from "@/components/Services";
 import CaseStudies from "@/components/CaseStudies";
 import HowItWorks from "@/components/HowItWorks";
 import Testimonials from "@/components/Testimonials";
+import WebsiteShowcase from "@/components/WebsiteShowcase";
 import AiAuditCTA from "@/components/AiAuditCTA";
 import About from "@/components/About";
 import BookCall from "@/components/BookCall";
@@ -21,8 +22,10 @@ const Index = () => {
       <main className="pt-16">
         <Hero />
         <SocialProofBar />
+
         <Services />
         <CaseStudies />
+        <WebsiteShowcase />
         <HowItWorks />
         <Testimonials />
         <AiAuditCTA />

@@ -6,9 +6,9 @@ const caseStudies = [
   {
     tag: "AI Automation · Hair Mastery",
     title: "AI Operations System for a Hair Education Business",
-    problem: "Owner was manually managing orders, appointments, and leads across WhatsApp, IG, and email — every day, hours of repetitive coordination.",
-    built: "OpenClaw multi-agent system: hub-and-spoke architecture with Atlas as orchestrator. Vendor/order Slack bot, churn rescue agent, IG lead pipeline, and email PDF compiler. 32 of 42 known business problems solved.",
-    outcome: "6 hours of overnight research, outreach to 50 prospects, and full file organisation — total cost: $6. Zero manual order coordination.",
+    summary:
+      "Hours of daily order and lead coordination across WhatsApp, IG, and email — now handled overnight by a multi-agent system.",
+    systems: ["OpenClaw multi-agent", "Slack order bot", "Churn rescue", "IG lead pipeline"],
     metrics: [
       { value: "$6", label: "Overnight run cost" },
       { value: "32/42", label: "Problems automated" },
@@ -19,9 +19,9 @@ const caseStudies = [
   {
     tag: "AI Automation · Salon",
     title: "24/7 AI Receptionist for a Premium Salon",
-    problem: "₹20,000+/month in missed revenue from customers who called after hours, got no answer, and booked elsewhere.",
-    built: "Appointment automation system: 24/7 booking via WhatsApp, automatic barber assignment, no double-booking logic, real-time schedule sync. Zero running cost architecture.",
-    outcome: "100% of after-hours booking attempts captured. Staff freed from phone coordination. System runs with no ongoing API cost.",
+    summary:
+      "After-hours callers were booking elsewhere. Now WhatsApp books them around the clock — no double-bookings, no running cost.",
+    systems: ["WhatsApp booking", "Auto barber assignment", "Real-time schedule sync"],
     metrics: [
       { value: "₹20K+", label: "Monthly revenue protected" },
       { value: "24/7", label: "Booking availability" },
@@ -32,9 +32,9 @@ const caseStudies = [
   {
     tag: "Content Pipeline · Hair Mastery",
     title: "Content Marketing Pipeline That Runs on Its Own",
-    problem: "Content was manual, inconsistent, and disconnected from lead capture. Posts didn't convert to DMs. Email list wasn't growing.",
-    built: "NotebookLM + custom MCP server + ManyChat keyword automation + MailerLite sequences. Each post triggers its own automation. API POST (not native integration) to pass custom field tags from day one.",
-    outcome: "36,000 views · 1,175 comments · 533 saves · 59 new followers — from one post. 10 hours/week saved on content ops.",
+    summary:
+      "Content was manual and disconnected from lead capture. Now every post triggers its own DM → email automation.",
+    systems: ["NotebookLM engine", "Custom MCP server", "ManyChat", "MailerLite"],
     metrics: [
       { value: "36K", label: "Views from one post" },
       { value: "533", label: "Saves" },
@@ -45,9 +45,9 @@ const caseStudies = [
   {
     tag: "Web & SaaS · Multiple Clients",
     title: "Websites & Applications That Actually Convert",
-    problem: "Generic portfolios and WooCommerce stores that look fine but don't close. Clients needed sites that work as sales assets, not digital brochures.",
-    built: "Grooming e-commerce (Switzerland) · Hair Mastery e-learning platform · Visitor Management System (Houston) · Vantalo agency portfolio · Wig shop storefront. Stack varies: React + Supabase, WordPress + WooCommerce, MERN.",
-    outcome: "Every project is live and in active use. Conversion-focused from the first component — not retrofitted.",
+    summary:
+      "Conversion-focused sites and apps for clients across three countries — every one live and in active use.",
+    systems: ["React + Supabase", "WordPress + WooCommerce", "MERN"],
     metrics: [
       { value: "7+", label: "Live projects" },
       { value: "3", label: "Countries" },
@@ -96,41 +96,41 @@ const CaseStudies = () => {
                   : "bg-card border-border hover:border-primary/30"
               }`}
             >
-              <div className="flex flex-col lg:flex-row lg:gap-12">
+              <div className="flex flex-col lg:flex-row lg:gap-12 lg:items-center">
                 {/* Left: content */}
                 <div className="flex-1 mb-6 lg:mb-0">
                   <span className="inline-block text-xs font-medium text-primary/80 uppercase tracking-wider mb-3">
                     {study.tag}
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-bold mb-4">{study.title}</h3>
+                  <h3 className="text-xl sm:text-2xl font-bold mb-3">{study.title}</h3>
 
-                  <div className="space-y-3 text-sm">
-                    <div>
-                      <span className="font-semibold text-muted-foreground uppercase text-xs tracking-wider">Problem</span>
-                      <p className="text-muted-foreground mt-1 leading-relaxed">{study.problem}</p>
-                    </div>
-                    <div>
-                      <span className="font-semibold text-muted-foreground uppercase text-xs tracking-wider">What Was Built</span>
-                      <p className="text-foreground mt-1 leading-relaxed">{study.built}</p>
-                    </div>
-                    <div>
-                      <span className="font-semibold text-muted-foreground uppercase text-xs tracking-wider">Outcome</span>
-                      <p className="text-foreground mt-1 leading-relaxed font-medium">{study.outcome}</p>
-                    </div>
+                  <p className="text-muted-foreground text-sm leading-relaxed max-w-xl mb-5">
+                    {study.summary}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2">
+                    {study.systems.map((system) => (
+                      <span
+                        key={system}
+                        className="px-2.5 py-1 text-xs font-medium rounded-md bg-background/60 border border-border/60 text-muted-foreground"
+                      >
+                        {system}
+                      </span>
+                    ))}
                   </div>
                 </div>
 
                 {/* Right: metrics */}
-                <div className="lg:w-56 flex-shrink-0">
-                  <div className="grid grid-cols-3 lg:grid-cols-1 gap-4">
+                <div className="lg:w-[360px] flex-shrink-0">
+                  <div className="grid grid-cols-3 gap-3">
                     {study.metrics.map((metric, i) => (
                       <div
                         key={i}
-                        className={`rounded-lg p-4 text-center lg:text-left ${
+                        className={`rounded-lg p-4 text-center ${
                           study.primary ? "bg-primary/10" : "bg-background"
                         }`}
                       >
-                        <div className="text-2xl font-bold text-primary">{metric.value}</div>
+                        <div className="text-2xl font-bold text-primary tabular-nums">{metric.value}</div>
                         <div className="text-xs text-muted-foreground mt-0.5">{metric.label}</div>
                       </div>
                     ))}

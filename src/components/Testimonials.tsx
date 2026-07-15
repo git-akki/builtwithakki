@@ -7,35 +7,28 @@ const testimonials = [
     name: "Pablo Keumin",
     role: "Founder, Hair Mastery (E-learning)",
     content:
-      "Akash helped us turn Hair Mastery into a clean, fast and trustworthy e-learning platform. Students find it easier to discover courses, and we get compliments on the experience every week.",
+      "Students find it easier to discover courses, and we get compliments on the experience every week.",
     rating: 5,
   },
   {
     name: "Oliver Rust",
     role: "Co-founder, Hair Mastery (E-learning)",
     content:
-      "From structure to small UX details, everything was thought through. The build process was smooth, communication was clear, and the final result reflects our brand exactly how we imagined.",
+      "From structure to small UX details, everything was thought through. The result reflects our brand exactly how we imagined.",
     rating: 5,
   },
   {
     name: "Marco Netali",
     role: "Founder, Modom Grooming (Switzerland)",
     content:
-      "Our e-commerce felt heavy before. After Akash’s work, pages load faster, checkout is simpler, and customers actually tell us the store feels premium. It had a clear impact on sales.",
-    rating: 5,
-  },
-  {
-    name: "Harsh",
-    role: "Founder, Vantalo (Social Media & Web Agency)",
-    content:
-      "The portfolio site Akash built gives us a strong first impression with prospects. It explains what we do clearly and makes it easy for leads to reach out, which is exactly what we needed.",
+      "Pages load faster, checkout is simpler, and customers tell us the store feels premium. Clear impact on sales.",
     rating: 5,
   },
   {
     name: "Shadab",
     role: "Owner, Hair Looks (Salon, India)",
     content:
-      "Akash understood the salon business quickly and translated it into a simple, modern online presence. Clients can see our work, trust our brand more, and bookings have become more consistent.",
+      "Clients see our work, trust our brand more, and bookings have become more consistent.",
     rating: 5,
   },
 ];
@@ -58,7 +51,7 @@ const Testimonials = () => {
             Client Feedback
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Don't just take my word for it — hear what clients have to say about working together.
+            What clients say about working together.
           </p>
         </motion.div>
 

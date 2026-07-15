@@ -1,96 +1,75 @@
-import { motion, Variants } from "framer-motion";
-import { TrendingDown, DollarSign, Cpu, TrendingUp } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView, Variants } from "framer-motion";
 import { fadeInUp, staggerContainer } from "../utils/animations";
 
-const stats = [
-  {
-    icon: TrendingDown,
-    value: "97%",
-    label: "AI Cost Reduction",
-    sublabel: "vs. unoptimized setups",
-    color: "text-green-400",
-    glow: "shadow-green-400/20",
-    bg: "bg-green-400/5 border-green-400/15",
-    iconBg: "bg-green-400/10",
-  },
-  {
-    icon: DollarSign,
-    value: "$6",
-    label: "Overnight Run Cost",
-    sublabel: "6 hrs research + 50 outreach",
-    color: "text-yellow-400",
-    glow: "shadow-yellow-400/20",
-    bg: "bg-yellow-400/5 border-yellow-400/15",
-    iconBg: "bg-yellow-400/10",
-  },
-  {
-    icon: Cpu,
-    value: "32/42",
-    label: "Problems Automated",
-    sublabel: "multi-agent system",
-    color: "text-primary",
-    glow: "shadow-primary/20",
-    bg: "bg-primary/5 border-primary/15",
-    iconBg: "bg-primary/10",
-  },
-  {
-    icon: TrendingUp,
-    value: "36K",
-    label: "Views From One Post",
-    sublabel: "content pipeline output",
-    color: "text-purple-400",
-    glow: "shadow-purple-400/20",
-    bg: "bg-purple-400/5 border-purple-400/15",
-    iconBg: "bg-purple-400/10",
-  },
+interface Stat {
+  value: string;
+  label: string;
+  sub: string;
+  numeric: number;
+  prefix: string;
+  suffix: string;
+}
+
+const stats: Stat[] = [
+  { value: "97%",   label: "AI cost reduction",          sub: "vs. unoptimised setups", numeric: 97,  prefix: "",  suffix: "%" },
+  { value: "$6",    label: "Overnight research run",      sub: "6 hrs · 50 prospects",   numeric: 6,   prefix: "$", suffix: "" },
+  { value: "32",    label: "Business problems automated", sub: "out of 42 identified",   numeric: 32,  prefix: "",  suffix: "" },
+  { value: "36K",   label: "Views from one post",         sub: "content pipeline output", numeric: 36,  prefix: "",  suffix: "K" },
 ];
 
-const SocialProofBar = () => {
+const useCounter = (target: number, duration = 1400, start = false) => {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    let startTime: number | null = null;
+    const step = (ts: number) => {
+      if (!startTime) startTime = ts;
+      const progress = Math.min((ts - startTime) / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * target));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [target, duration, start]);
+  return count;
+};
+
+const CounterStat = ({ stat }: { stat: Stat }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-50px" });
+  const count = useCounter(stat.numeric, 1600, inView);
+
   return (
-    <section className="py-16 border-y border-border/60">
-      <div className="container">
-        <motion.p
-          initial="hidden"
-          whileInView="visible"
-          variants={fadeInUp as unknown as Variants}
-          viewport={{ once: true }}
-          className="text-center text-xs font-medium text-muted-foreground/50 uppercase tracking-widest mb-8"
-        >
-          Real numbers from live systems
-        </motion.p>
-        <motion.div
-          variants={staggerContainer as unknown as Variants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4"
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              variants={fadeInUp as unknown as Variants}
-              className={`relative p-4 rounded-xl border ${stat.bg} shadow-md ${stat.glow} group`}
-            >
-              {/* Live pulse dot */}
-              <div className="absolute top-3 right-3 w-1.5 h-1.5 rounded-full bg-current opacity-60 animate-pulse" style={{ color: "inherit" }}>
-                <span className={`block w-1.5 h-1.5 rounded-full ${stat.color === "text-green-400" ? "bg-green-400" : stat.color === "text-yellow-400" ? "bg-yellow-400" : stat.color === "text-primary" ? "bg-primary" : "bg-purple-400"} animate-pulse`} />
-              </div>
-
-              <div className={`inline-flex w-8 h-8 rounded-lg items-center justify-center mb-3 ${stat.iconBg}`}>
-                <stat.icon className={`w-4 h-4 ${stat.color}`} />
-              </div>
-
-              <div className={`text-2xl sm:text-3xl font-bold ${stat.color} mb-0.5 tabular-nums`}>
-                {stat.value}
-              </div>
-              <div className="text-sm font-medium text-foreground/80 leading-tight">{stat.label}</div>
-              <div className="text-[11px] text-muted-foreground/60 mt-1">{stat.sublabel}</div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
+    <div ref={ref} className="flex flex-col gap-1 px-8 py-8 bg-background">
+      <span className="text-3xl sm:text-4xl font-bold text-foreground tabular-nums tracking-tight">
+        {inView ? `${stat.prefix}${count}${stat.suffix}` : "—"}
+      </span>
+      <span className="text-sm font-medium text-foreground/70">{stat.label}</span>
+      <span className="text-xs text-muted-foreground/50 mt-0.5">{stat.sub}</span>
+    </div>
   );
 };
+
+const SocialProofBar = () => (
+  <section className="py-20 border-b border-border/50">
+    <div className="container">
+      <motion.div
+        variants={staggerContainer as unknown as Variants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border/40 rounded-2xl overflow-hidden"
+      >
+        {stats.map((s, i) => (
+          <motion.div key={i} variants={fadeInUp as unknown as Variants}>
+            <CounterStat stat={s} />
+          </motion.div>
+        ))}
+      </motion.div>
+    </div>
+  </section>
+);
 
 export default SocialProofBar;

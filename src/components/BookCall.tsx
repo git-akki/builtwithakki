@@ -33,13 +33,13 @@ const BookCall = () => {
             </motion.div>
 
             <motion.h2 variants={fadeInUp as unknown as Variants} className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-              Let&apos;s Build Something Great
+              Walk Away With a Costed Automation Plan
             </motion.h2>
 
             <motion.p variants={fadeInUp as unknown as Variants} className="text-lg text-muted-foreground mb-8 max-w-2xl">
-              Whether you need a conversion-focused website, an AI-powered
-              automation system, or a scalable web application — let&apos;s
-              discuss how I can help your business grow.
+              One 30-minute call. You leave knowing exactly what to automate
+              first, what it costs, and what it saves — whether we work
+              together or not.
             </motion.p>
 
             <motion.div variants={staggerContainer as unknown as Variants} className="flex flex-col sm:flex-row gap-4">
@@ -69,8 +69,8 @@ const BookCall = () => {
               <div className="flex flex-wrap gap-4 text-sm">
                 {[
                   "30-minute discovery call",
-                  "Project scope discussion",
-                  "Custom solution proposal",
+                  "Your highest-ROI automation identified",
+                  "Real cost & time estimates",
                   "No commitment required",
                 ].map((item, index) => (
                   <motion.span variants={fadeInUp as unknown as Variants} key={index} className="flex items-center gap-2">
