@@ -31,7 +31,7 @@ const HowItWorks = () => {
           initial="hidden"
           whileInView="visible"
           variants={fadeInUp as unknown as Variants}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
           className="text-center mb-16"
         >
           <span className="inline-block px-4 py-1.5 text-sm font-medium text-primary border border-primary/20 rounded-full mb-4">
@@ -49,7 +49,7 @@ const HowItWorks = () => {
           variants={staggerContainer as unknown as Variants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false }}
+          viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-3 gap-8 relative"
         >
           {/* Connector line (desktop only) */}

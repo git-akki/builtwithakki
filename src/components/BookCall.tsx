@@ -18,7 +18,7 @@ const BookCall = () => {
           initial="hidden"
           whileInView="visible"
           variants={staggerContainer as unknown as Variants}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
           className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-card via-card to-primary/5 border border-border p-8 sm:p-12 lg:p-16"
         >
           {/* Background decoration */}

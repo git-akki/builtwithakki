@@ -89,7 +89,7 @@ const Projects = () => {
           initial="hidden"
           whileInView="visible"
           variants={fadeInUp as unknown as Variants}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
           className="text-center mb-16"
         >
           <span className="inline-block px-4 py-1.5 text-sm font-medium text-primary border border-primary/20 rounded-full mb-4">
@@ -117,7 +117,7 @@ const Projects = () => {
                   variants={fadeInUp as unknown as Variants}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: false }}
+                  viewport={{ once: true }}
                   href={project.link}
                   target={project.link.startsWith("http") ? "_blank" : undefined}
                   rel={project.link.startsWith("http") ? "noopener noreferrer" : undefined}

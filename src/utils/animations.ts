@@ -1,45 +1,41 @@
 export const smoothTransition = {
-    duration: 0.8,
+    duration: 0.5,
     ease: [0.25, 0.1, 0.25, 1.0] as [number, number, number, number],
 };
 
 export const fadeInUp = {
-    hidden: { opacity: 0, y: 40, filter: "blur(10px)" },
+    hidden: { opacity: 0, y: 16 },
     visible: {
         opacity: 1,
         y: 0,
-        filter: "blur(0px)",
         transition: smoothTransition,
     },
 };
 
 export const fadeInLeft = {
-    hidden: { opacity: 0, x: -40, filter: "blur(10px)" },
+    hidden: { opacity: 0, x: -16 },
     visible: {
         opacity: 1,
         x: 0,
-        filter: "blur(0px)",
         transition: smoothTransition,
     },
 };
 
 export const fadeInRight = {
-    hidden: { opacity: 0, x: 40, filter: "blur(10px)" },
+    hidden: { opacity: 0, x: 16 },
     visible: {
         opacity: 1,
         x: 0,
-        filter: "blur(0px)",
         transition: smoothTransition,
     },
 };
 
 export const scaleIn = {
-    hidden: { opacity: 0, scale: 0.9, filter: "blur(8px)" },
+    hidden: { opacity: 0, scale: 0.97 },
     visible: {
         opacity: 1,
         scale: 1,
-        filter: "blur(0px)",
-        transition: { ...smoothTransition, duration: 1 },
+        transition: smoothTransition,
     },
 };
 
@@ -48,8 +44,8 @@ export const staggerContainer = {
     visible: {
         opacity: 1,
         transition: {
-            staggerChildren: 0.15,
-            delayChildren: 0.1,
+            staggerChildren: 0.1,
+            delayChildren: 0.05,
         },
     },
 };
@@ -59,7 +55,7 @@ export const staggerFast = {
     visible: {
         opacity: 1,
         transition: {
-            staggerChildren: 0.1,
+            staggerChildren: 0.08,
             delayChildren: 0.05,
         },
     },

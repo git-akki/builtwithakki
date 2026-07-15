@@ -196,7 +196,7 @@ const WebsiteShowcase = () => (
         initial="hidden"
         whileInView="visible"
         variants={staggerContainer as unknown as Variants}
-        viewport={{ once: false }}
+        viewport={{ once: true }}
         className="flex flex-col sm:flex-row sm:items-end justify-between mb-14 gap-4"
       >
         <div>
@@ -216,7 +216,7 @@ const WebsiteShowcase = () => (
         variants={staggerContainer as unknown as Variants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false }}
+        viewport={{ once: true }}
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
       >
         {projects.map((project, i) => (

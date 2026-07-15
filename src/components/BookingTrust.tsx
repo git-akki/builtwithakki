@@ -28,7 +28,7 @@ const BookingTrust = () => {
                     variants={staggerContainer as unknown as Variants}
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: false }}
+                    viewport={{ once: true }}
                     className="grid grid-cols-1 md:grid-cols-3 gap-8"
                 >
                     {benefits.map((benefit, index) => (

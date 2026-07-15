@@ -43,7 +43,7 @@ const ProjectAudit = () => {
                 <motion.div
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: false }}
+                    viewport={{ once: true }}
                     variants={fadeInUp as unknown as Variants}
                     className="text-center mb-12 space-y-4">
                     <h2 className="text-3xl sm:text-4xl font-bold">
@@ -58,7 +58,7 @@ const ProjectAudit = () => {
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: false }}
+                        viewport={{ once: true }}
                         variants={fadeInUp as unknown as Variants}
                         className="flex flex-col items-center justify-center p-8 bg-card border border-border rounded-3xl shadow-xl"
                     >
@@ -131,7 +131,7 @@ const ProjectAudit = () => {
                         variants={staggerContainer as unknown as Variants}
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: false }}
+                        viewport={{ once: true }}
                         className="space-y-4"
                     >
                         {checklist.map((item, index) => (

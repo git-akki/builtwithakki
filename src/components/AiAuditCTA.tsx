@@ -29,7 +29,7 @@ const AiAuditCTA = () => {
             initial="hidden"
             whileInView="visible"
             variants={fadeInUp as unknown as Variants}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             className="text-center mb-12"
           >
             <span className="inline-block px-4 py-1.5 text-sm font-medium text-destructive border border-destructive/20 rounded-full mb-4">
@@ -48,7 +48,7 @@ const AiAuditCTA = () => {
             variants={staggerContainer as unknown as Variants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             className="space-y-3 mb-12"
           >
             {redFlags.map((item, index) => (
@@ -67,7 +67,7 @@ const AiAuditCTA = () => {
             variants={fadeInUp as unknown as Variants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             className="text-center"
           >
             <p className="text-muted-foreground mb-6">

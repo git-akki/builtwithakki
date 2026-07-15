@@ -105,27 +105,31 @@
 @layer utilities {
   .text-balance { text-wrap: balance; }
 
-  /* Premium elevation — theme-aware layered shadows */
+  /* Premium elevation — theme-aware layered shadows.
+     Hover lift uses the `translate` property (not `transform`) so it never
+     fights framer-motion's inline transform during entrance animations. */
   .card-elevated {
     box-shadow: var(--shadow-card);
-    transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+    translate: 0 0;
+    transition: box-shadow 0.25s ease, translate 0.25s ease, border-color 0.25s ease;
   }
   .card-elevated:hover {
     box-shadow: var(--shadow-card-hover);
-    transform: translateY(-2px);
+    translate: 0 -2px;
   }
 
   /* Stripe-style button depth: inset top highlight + colored glow */
   .btn-premium {
     box-shadow: var(--shadow-btn);
-    transition: box-shadow 0.2s ease, transform 0.2s ease, filter 0.2s ease;
+    translate: 0 0;
+    transition: box-shadow 0.2s ease, translate 0.2s ease, filter 0.2s ease;
   }
   .btn-premium:hover {
     filter: brightness(1.08);
-    transform: translateY(-1px);
+    translate: 0 -1px;
   }
   .btn-premium:active {
-    transform: translateY(0);
+    translate: 0 0;
     filter: brightness(0.98);
   }
 }

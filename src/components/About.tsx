@@ -41,7 +41,7 @@ const About = () => (
           initial="hidden"
           whileInView="visible"
           variants={staggerContainer as unknown as Variants}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
         >
           <motion.p variants={fadeInUp as unknown as Variants} className="text-xs font-medium text-primary uppercase tracking-[0.15em] mb-6">
             About
@@ -82,7 +82,7 @@ const About = () => (
           initial="hidden"
           whileInView="visible"
           variants={staggerContainer as unknown as Variants}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
           className="relative"
         >
           {/* Vertical line */}

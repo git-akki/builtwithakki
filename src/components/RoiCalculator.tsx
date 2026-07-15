@@ -39,7 +39,7 @@ const RoiCalculator = () => {
                             initial="hidden"
                             whileInView="visible"
                             variants={fadeInUp as unknown as Variants}
-                            viewport={{ once: false }}
+                            viewport={{ once: true }}
                             className="space-y-4">
                             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10">
                                 <Calculator className="w-4 h-4 text-primary" />
@@ -61,7 +61,7 @@ const RoiCalculator = () => {
                             initial="hidden"
                             whileInView="visible"
                             variants={staggerContainer as unknown as Variants}
-                            viewport={{ once: false }}
+                            viewport={{ once: true }}
                             className="space-y-8 p-6 sm:p-8 rounded-3xl border border-border bg-card/50"
                         >
                             {/* Team Size Input */}
@@ -132,7 +132,7 @@ const RoiCalculator = () => {
                         initial="hidden"
                         whileInView="visible"
                         variants={fadeInUp as unknown as Variants}
-                        viewport={{ once: false }}
+                        viewport={{ once: true }}
                         className="flex-1 w-full"
                     >
                         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-card via-card to-primary/10 border border-primary/20 p-8 sm:p-12 text-center shadow-2xl shadow-primary/5">

@@ -110,7 +110,7 @@ const Contact = () => {
             variants={staggerContainer as unknown as Variants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             className="flex flex-col gap-6"
           >
             {contactLinks.map((link, index) => (
@@ -139,7 +139,7 @@ const Contact = () => {
             initial="hidden"
             whileInView="visible"
             variants={fadeInUp as unknown as Variants}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             transition={{ ...smoothTransition, delay: 0.2 } as unknown as Transition}
             className="relative p-8 bg-card rounded-2xl border border-border [box-shadow:var(--shadow-card)]"
           >

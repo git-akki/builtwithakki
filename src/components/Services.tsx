@@ -39,7 +39,7 @@ const Services = () => (
         initial="hidden"
         whileInView="visible"
         variants={fadeInUp as unknown as Variants}
-        viewport={{ once: false }}
+        viewport={{ once: true }}
         className="max-w-xl mb-16"
       >
         <p className="text-xs font-medium text-primary uppercase tracking-[0.15em] mb-4">Services</p>
@@ -53,7 +53,7 @@ const Services = () => (
         variants={staggerContainer as unknown as Variants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false }}
+        viewport={{ once: true }}
         className="grid grid-cols-1 md:grid-cols-3 gap-5"
       >
         {services.map((s, i) => (
