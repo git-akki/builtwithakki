@@ -44,14 +44,12 @@ const Testimonials = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-1.5 text-sm font-medium text-primary border border-primary/20 rounded-full mb-4">
-            Testimonials
-          </span>
+          <p className="text-xs font-mono text-primary uppercase tracking-[0.15em] mb-4">// testimonials.map()</p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-            Client Feedback
+            What people say
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            What clients say about working together.
+            No cherry-picked praise — this is what clients said after the work shipped.
           </p>
         </motion.div>
 

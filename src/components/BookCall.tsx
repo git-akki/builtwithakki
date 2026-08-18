@@ -34,18 +34,17 @@ const BookCall = () => {
             <motion.div variants={fadeInUp as unknown as Variants} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 mb-6">
               <Calendar className="w-4 h-4 text-primary" />
               <span className="text-sm font-medium text-primary">
-                Free Consultation
+                Let's talk
               </span>
             </motion.div>
 
             <motion.h2 variants={fadeInUp as unknown as Variants} className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-              Walk Away With a Costed Automation Plan
+              Got something worth building?
             </motion.h2>
 
             <motion.p variants={fadeInUp as unknown as Variants} className="text-lg text-muted-foreground mb-8 max-w-2xl">
-              One 30-minute call. You leave knowing exactly what to automate
-              first, what it costs, and what it saves — whether we work
-              together or not.
+              A 30-minute call. No pitch deck, no pressure —
+              just a straight conversation about what you're trying to build.
             </motion.p>
 
             <motion.div variants={staggerContainer as unknown as Variants} className="flex flex-col sm:flex-row gap-4">
@@ -74,10 +73,10 @@ const BookCall = () => {
               </p>
               <div className="flex flex-wrap gap-4 text-sm">
                 {[
-                  "30-minute discovery call",
-                  "Your highest-ROI automation identified",
-                  "Real cost & time estimates",
-                  "No commitment required",
+                  "30-minute call, no prep needed",
+                  "Straight answer on scope & cost",
+                  "Real examples from past builds",
+                  "No obligation either way",
                 ].map((item, index) => (
                   <motion.span variants={fadeInUp as unknown as Variants} key={index} className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-primary" />

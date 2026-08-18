@@ -4,7 +4,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Ask from "./pages/Ask";
 import Index from "./pages/Index";
 import AiAutomationLanding from "./pages/AiAutomationLanding";
 import NotFound from "./pages/NotFound";
@@ -22,9 +21,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          {/* Chat-first home. The previous site stays at /classic — nothing deleted. */}
-          <Route path="/" element={<Ask />} />
-          <Route path="/classic" element={<Index />} />
+          <Route path="/" element={<Index />} />
           {/* Destination for /mkt reels and LinkedIn case-study posts. */}
           <Route path="/ai-automation" element={<AiAutomationLanding />} />
           <Route path="/ai" element={<AiAutomationLanding />} />

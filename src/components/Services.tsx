@@ -1,52 +1,52 @@
 import { motion, Variants } from "framer-motion";
-import { Bot, Megaphone, Globe, Check, ArrowRight } from "lucide-react";
+import { Bot, Workflow, Globe, Smartphone, Check, ArrowRight } from "lucide-react";
 import { fadeInUp, staggerContainer } from "../utils/animations";
-import { withAttribution } from "@/lib/attribution";
-
-/* One booking type per service, so a booked call already says which service it
-   is about and which piece of content produced it. */
-const CAL_BASE = "https://cal.com/akash-yadav-xfz9ms";
-
-const bookingUrl = (slug: string) => withAttribution(`${CAL_BASE}/${slug}`);
 
 const services = [
   {
     icon: Bot,
-    label: "Most requested",
-    title: "AI Automation",
-    desc: "Multi-agent systems that handle your daily ops — orders, leads, appointments — 24/7 at near-zero cost.",
+    id: "SYS-01",
+    label: "Flagship",
+    title: "AI / Claude Code Agent Systems",
+    desc: "Multi-agent systems built with Claude Code — hub-and-spoke orchestration that runs ops overnight, unattended.",
     proof: "$27 overnight run · 32/42 problems solved",
-    items: ["Hub-and-spoke agent architecture", "Slack / WhatsApp / email integrations", "Cost controls & audit trail"],
+    items: ["Multi-agent orchestration (OpenClaw-style)", "Cost-controlled model routing", "Full audit trail, zero manual ops"],
     accent: true,
-    calSlug: "automation-audit",
-    cta: "Book an automation audit",
   },
   {
-    icon: Megaphone,
-    label: "Content growth",
-    title: "Content Pipeline",
-    desc: "One piece of content, fully automated distribution — IG → DMs → email sequences → analytics.",
-    proof: "36K views · 533 saves · 59 new followers",
-    items: ["NotebookLM + MCP content engine", "ManyChat keyword automation", "MailerLite email sequences"],
+    icon: Workflow,
+    id: "SYS-02",
+    label: "Growth",
+    title: "Automation & Content Pipelines",
+    desc: "One piece of content or one lead, fully automated end to end — capture, distribution, follow-up, analytics.",
+    proof: "36K views · 533 saves · 10hrs/week saved",
+    items: ["NotebookLM + custom MCP content engine", "ManyChat / WhatsApp lead capture", "MailerLite email sequences"],
     accent: false,
-    calSlug: "content-audit",
-    cta: "Book a content audit",
   },
   {
     icon: Globe,
-    label: "Web & SaaS",
-    title: "Website & App Build",
-    desc: "Conversion-focused sites and full-stack apps. Designed to close, not just impress.",
+    id: "SYS-03",
+    label: "Web",
+    title: "Web Development",
+    desc: "Conversion-focused sites and e-commerce. Designed to close, not just impress.",
     proof: "7+ live projects · 3 countries",
-    items: ["React + Supabase / MERN", "Booking systems & e-commerce", "WordPress + WooCommerce"],
+    items: ["React + Supabase", "WordPress + WooCommerce", "MERN full-stack"],
     accent: false,
-    calSlug: "website-project",
-    cta: "Book a project call",
+  },
+  {
+    icon: Smartphone,
+    id: "SYS-04",
+    label: "App",
+    title: "App Development",
+    desc: "Booking systems, dashboards, and internal tools built to run without supervision.",
+    proof: "24/7 booking · ₹0 running cost",
+    items: ["WhatsApp-native booking systems", "Real-time scheduling & sync", "Custom internal SaaS tools"],
+    accent: false,
   },
 ];
 
 const Services = () => (
-  <section id="services" className="py-28">
+  <section id="services" className="py-28 grid-texture">
     <div className="container">
       <motion.div
         initial="hidden"
@@ -55,11 +55,11 @@ const Services = () => (
         viewport={{ once: true }}
         className="max-w-xl mb-16"
       >
-        <p className="text-xs font-medium text-primary uppercase tracking-[0.15em] mb-4">Services</p>
+        <p className="text-xs font-mono text-primary uppercase tracking-[0.15em] mb-4">// services.map()</p>
         <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-          One problem. One solution. Real numbers.
+          Four things I actually build.
         </h2>
-        <p className="text-muted-foreground">Pick the offering that matches your biggest pain right now.</p>
+        <p className="text-muted-foreground">No filler categories — this is what's shipped, live, and in use right now.</p>
       </motion.div>
 
       <motion.div
@@ -67,33 +67,42 @@ const Services = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-5"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5"
       >
         {services.map((s, i) => (
           <motion.div
             key={i}
             variants={fadeInUp as unknown as Variants}
-            className={`card-elevated relative flex flex-col rounded-2xl border p-7 group ${
+            className={`card-elevated relative flex flex-col rounded-lg border p-6 group ${
               s.accent
                 ? "border-primary/25 bg-primary/[0.03] hover:border-primary/45"
                 : "border-border/60 bg-card hover:border-primary/25"
             }`}
           >
-            {s.accent && (
-              <span className="absolute top-5 right-5 text-[10px] font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+            {/* Module header row: id + status */}
+            <div className="flex items-center justify-between mb-6">
+              <span className="text-[10px] font-mono text-muted-foreground/50 tracking-wide">{s.id}</span>
+              <span
+                className={`inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wide px-2 py-0.5 rounded-md ${
+                  s.accent ? "text-primary bg-primary/10" : "text-muted-foreground bg-muted"
+                }`}
+              >
+                <span className="relative flex h-1 w-1">
+                  <span className="relative inline-flex rounded-full h-1 w-1 bg-emerald-500" />
+                </span>
                 {s.label}
               </span>
-            )}
+            </div>
 
-            <div className={`w-9 h-9 rounded-xl flex items-center justify-center mb-6 transition-colors ${
+            <div className={`w-9 h-9 rounded-md flex items-center justify-center mb-6 transition-colors ${
               s.accent
                 ? "bg-primary/15 text-primary"
                 : "bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary"
             }`}>
-              <s.icon className="w-4.5 h-4.5 w-[18px] h-[18px]" />
+              <s.icon className="w-[18px] h-[18px]" />
             </div>
 
-            <h3 className="text-lg font-semibold mb-2">{s.title}</h3>
+            <h3 className="text-lg font-semibold mb-2 leading-snug">{s.title}</h3>
             <p className="text-sm text-muted-foreground leading-relaxed mb-5">{s.desc}</p>
 
             <ul className="space-y-2 mb-6 flex-1">
@@ -106,15 +115,7 @@ const Services = () => (
             </ul>
 
             <div className={`pt-5 border-t ${s.accent ? "border-primary/15" : "border-border/50"}`}>
-              <p className="text-xs font-medium text-muted-foreground/70 tabular-nums">{s.proof}</p>
-              <a
-                href={bookingUrl(s.calSlug)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:gap-2.5 transition-all duration-200"
-              >
-                {s.cta} <ArrowRight className="w-3.5 h-3.5" />
-              </a>
+              <p className="text-[11px] font-mono text-muted-foreground/70 tabular-nums">{s.proof}</p>
             </div>
           </motion.div>
         ))}
@@ -128,7 +129,7 @@ const Services = () => (
         className="mt-10"
       >
         <a href="#book-call" className="inline-flex items-center gap-1.5 text-sm text-primary hover:gap-2.5 transition-all duration-200 font-medium">
-          Start with a free 30-min audit <ArrowRight className="w-3.5 h-3.5" />
+          Curious how any of this works? Let's talk <ArrowRight className="w-3.5 h-3.5" />
         </a>
       </motion.div>
     </div>

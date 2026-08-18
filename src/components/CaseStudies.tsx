@@ -161,11 +161,9 @@ const CaseStudies = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-1.5 text-sm font-medium text-primary border border-primary/20 rounded-full mb-4">
-            Case Studies
-          </span>
+          <p className="text-xs font-mono text-primary uppercase tracking-[0.15em] mb-4">// case_studies.map()</p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-            Real Systems. Real Numbers.
+            Real systems. Real numbers.
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Every project here is live, in use, and measured.

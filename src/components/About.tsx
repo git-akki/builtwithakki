@@ -27,7 +27,7 @@ const milestones = [
 
 const beliefs = [
   "Automation built right costs less than a single employee.",
-  "Most businesses pay a 90%+ AI inefficiency tax without knowing it.",
+  "Systems matter more than effort — that's the one lesson that held.",
   "The best system is one you never have to touch again.",
 ];
 
@@ -43,8 +43,8 @@ const About = () => (
           variants={staggerContainer as unknown as Variants}
           viewport={{ once: true }}
         >
-          <motion.p variants={fadeInUp as unknown as Variants} className="text-xs font-medium text-primary uppercase tracking-[0.15em] mb-6">
-            About
+          <motion.p variants={fadeInUp as unknown as Variants} className="text-xs font-mono text-primary uppercase tracking-[0.15em] mb-6">
+            // about.me
           </motion.p>
 
           <motion.h2 variants={fadeInUp as unknown as Variants} className="text-3xl sm:text-4xl font-bold tracking-tight mb-8 leading-tight">
@@ -72,7 +72,7 @@ const About = () => (
               href="#book-call"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:gap-2.5 transition-all duration-200"
             >
-              Book a free 30-min audit <ArrowRight className="w-3.5 h-3.5" />
+              Get in touch <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </motion.div>
         </motion.div>
@@ -98,7 +98,7 @@ const About = () => (
                       ? "bg-primary/10 border-primary/30 text-primary"
                       : "bg-card border-border/60 text-muted-foreground"
                   }`}>
-                    {m.year === "Now" ? "NOW" : m.year.slice(2)}
+                    {m.year === "Now" ? "NOW" : `'${m.year.slice(2)}`}
                   </div>
                 </div>
 

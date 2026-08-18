@@ -1,7 +1,6 @@
 import { motion, Variants } from "framer-motion";
 import { fadeInUp } from "../utils/animations";
 import ClawBotIcon from "./ClawBotIcon";
-import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   return (
@@ -19,9 +18,8 @@ const Navbar = () => {
             AY<span className="text-primary">.</span>
           </a>
 
-          {/* Theme toggle + Book a Call */}
+          {/* Book a Call */}
           <div className="flex items-center gap-2">
-            <ThemeToggle />
             <motion.a
               variants={fadeInUp as unknown as Variants}
               initial="hidden"

@@ -200,8 +200,8 @@ const WebsiteShowcase = () => (
         className="flex flex-col sm:flex-row sm:items-end justify-between mb-14 gap-4"
       >
         <div>
-          <motion.p variants={fadeInUp as unknown as Variants} className="text-xs font-medium text-primary uppercase tracking-[0.15em] mb-4">
-            Web Projects
+          <motion.p variants={fadeInUp as unknown as Variants} className="text-xs font-mono text-primary uppercase tracking-[0.15em] mb-4">
+            // web_projects.map()
           </motion.p>
           <motion.h2 variants={fadeInUp as unknown as Variants} className="text-3xl sm:text-4xl font-bold tracking-tight">
             Sites that sell.<br />Apps that work.
