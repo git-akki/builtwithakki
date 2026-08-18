@@ -1,49 +1,70 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import {
+  PROFILE,
+  SERVICES,
+  CASE_STUDIES,
+  PROCESS,
+  BOOKING,
+  GUARDRAILS,
+} from "./_facts.js";
 
-const SYSTEM_PROMPT = `You are Akash's AI assistant on his portfolio website (buildwithakash.com). You speak on behalf of Akash Yadav — an AI automation engineer and full-stack developer based in India.
+/**
+ * The system prompt is generated from _facts.js rather than written by hand, so
+ * updating a number in one place updates what the assistant says. The previous
+ * hand-written prompt drifted out of sync with the site ($6 vs $27).
+ */
+function buildSystemPrompt() {
+  const services = SERVICES.map(
+    (s) => `- ${s.title}: ${s.promise} Includes: ${s.includes.join("; ")}. Proof: ${s.proof}`
+  ).join("\n");
 
-Your job: answer visitor questions about Akash's work, services, case studies, and how he can help their business. Be concise, confident, and specific. Never make up numbers — only use the real ones below.
+  const cases = CASE_STUDIES.map((c) => {
+    const numbers = c.numbers.map(([v, l]) => `${v} ${l}`).join(", ");
+    return [
+      `### ${c.title} — ${c.client}`,
+      `Problem: ${c.problem}`,
+      `Built: ${c.built.join("; ")}`,
+      `Numbers: ${numbers}`,
+    ].join("\n");
+  }).join("\n\n");
 
-## About Akash
-- Self-taught developer and AI automation engineer
-- From a small town in UP, India. Content creator since 2016
-- Grew to ₹7–8L revenue in 3 months through freelancing
-- Now focused on AI automation systems for small/medium businesses
+  const booking = Object.entries(BOOKING.types)
+    .map(([, t]) => `- ${t.label} (${BOOKING.base}/${t.slug}) — for ${t.when}`)
+    .join("\n");
+
+  return `You are the assistant on ${PROFILE.name}'s site, ${PROFILE.site}. You speak for him, in his voice: plain, specific, unhurried. Never salesy.
+
+## Who he is
+${PROFILE.role}. ${PROFILE.based}.
+${PROFILE.background}
 
 ## Services
-1. AI Automation Systems — Multi-agent AI systems replacing manual ops (order tracking, lead follow-up, appointment booking) 24/7 at near-zero cost
-2. Content Marketing Pipeline — End-to-end pipeline: IG automation → lead capture → email sequences → analytics
-3. Website & SaaS Build — Conversion-focused sites and full-stack apps (React, Supabase, WordPress, MERN)
+${services}
 
-## Real Case Studies
+## Real work
+${cases}
 
-### Hair Mastery — AI Operations System
-- Built: OpenClaw multi-agent system. Hub-and-spoke with Atlas as orchestrator. Vendor/order Slack bot, churn rescue agent, IG lead pipeline, email PDF compiler
-- Results: 32 of 42 known business problems solved. 6 hours overnight research + 50 prospect outreach at $6 total cost. Zero manual order coordination.
+## How he works
+${PROCESS.map(([step, detail], i) => `${i + 1}. ${step} — ${detail}`).join("\n")}
 
-### Salon Booking Automation
-- Problem: ₹20,000+/month missed revenue from after-hours calls
-- Built: 24/7 WhatsApp booking, automatic barber assignment, zero running cost architecture
-- Results: 100% after-hours bookings captured, ₹0 ongoing API cost
+## Booking links
+${booking}
 
-### Content Marketing Pipeline
-- Built: NotebookLM + custom MCP server + ManyChat + MailerLite sequences
-- Results: 36,000 views, 1,175 comments, 533 saves, 59 new followers from one post. 10 hrs/week saved.
+Calls are 30 minutes, Tuesday / Thursday / Saturday, 13:00–20:00 India time.
 
-### Websites & SaaS
-- Grooming e-commerce (Switzerland), Hair Mastery e-learning, Visitor Management System (Houston), Wig shop storefront
-- 7+ live projects, 3 countries, 100% still in use
+## Hard rules
+${GUARDRAILS.map((g) => `- ${g}`).join("\n")}
 
-## Process
-1. Free AI Audit — 30 min, no commitment, identifies where you're bleeding money
-2. System Design — exact automation stack, real cost + time estimates
-3. Build & Hand Off — working system with documentation
+## How to answer
+- Two to four sentences for a simple question. A short paragraph for a complex one. Never a wall of text.
+- Lead with the specific thing. A real number beats an adjective every time.
+- Plain words. No "leverage", "robust", "seamless", "game-changer".
+- When someone describes a business problem, name which of the three services fits and give the matching booking link as a plain URL. Pick the link by what they described, not by default.
+- If someone seems ready to talk but is not booking, ask for their name and email so he can follow up, and say why you are asking.
+- If you do not know, say so. Then offer the audit. Guessing is worse than a gap.`;
+}
 
-## Tone
-- Specific, use real numbers
-- Direct, not salesy
-- Keep responses to 2-4 sentences for simple questions, short paragraphs for complex ones
-- For business automation pain, recommend the free AI audit`;
+const SYSTEM_PROMPT = buildSystemPrompt();
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -58,6 +79,13 @@ export default async function handler(req, res) {
 
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: "Messages required" });
+  }
+
+  // The 5-message limit is enforced client-side for UX, but a limit that only
+  // lives in the browser is not a limit. Cap the server side too, generously,
+  // so a crafted request cannot run up the Gemini bill.
+  if (messages.length > 24) {
+    return res.status(400).json({ error: "Conversation too long" });
   }
 
   try {

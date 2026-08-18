@@ -3,6 +3,7 @@ import { Mail, Linkedin, Github, ArrowUpRight, Check } from "lucide-react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { fadeInUp, staggerContainer, smoothTransition } from "../utils/animations";
+import { attributionSource } from "@/lib/attribution";
 
 interface IFormInput {
   name: string;
@@ -81,7 +82,10 @@ const Contact = () => {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          source: attributionSource("portfolio-form"),
+        }),
       });
 
       if (!response.ok) {

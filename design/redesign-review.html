@@ -1,0 +1,624 @@
+<title>Quiet Machine</title>
+
+<style>
+  /* Light only, on purpose. Every colour is stated — the page never borrows
+     the host's theme. */
+  :root {
+    --paper:      #FBFBFA;
+    --raise:      #FFFFFF;
+    --tint:       #F4F4F7;
+    --ink:        #131417;
+    --ink-2:      #5B5E66;
+    --ink-3:      #8B8E97;
+    --line:       #E6E5E2;
+    --line-2:     #D3D2CE;
+    --accent:     #3D3BD6;
+    --accent-2:   #6462E8;
+    --accent-soft:#EDEDFC;
+    --ok:         #237A4B;
+    --ok-soft:    #E4F1EA;
+    --wip:        #8A6A12;
+    --wip-soft:   #F7EFD9;
+    --star:       #E0A32E;
+    --radius:     14px;
+    --sans: system-ui, -apple-system, "Helvetica Neue", sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ═══ review chrome ═══ */
+  .review-bar { position: sticky; top: 0; z-index: 50; background: var(--raise); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 20px; flex-wrap: wrap; }
+  .review-bar .label { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+  .tabs { display: flex; gap: 4px; }
+  .tab { font: inherit; font-size: 13px; font-weight: 500; padding: 7px 14px; border-radius: 999px; border: 1px solid transparent; background: transparent; color: var(--ink-2); cursor: pointer; }
+  .tab[aria-selected="true"] { background: var(--ink); color: #fff; }
+  .screen { display: none; } .screen.active { display: block; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+  .num { font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+
+  /* ═══ nav ═══ */
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+  .mark { display: flex; align-items: center; gap: 9px; font-weight: 600; font-size: 15px; letter-spacing: -.01em; }
+  .mark .dot { width: 9px; height: 9px; border-radius: 2px; background: var(--accent); }
+  .nav-right { display: flex; align-items: center; gap: 20px; font-size: 14px; color: var(--ink-2); }
+  .nav-right a { text-decoration: none; }
+  .btn { display: inline-flex; align-items: center; gap: 7px; background: var(--ink); color: #fff; padding: 9px 16px; border-radius: 999px; font-size: 14px; font-weight: 500; text-decoration: none; }
+  .btn.ghost { background: var(--raise); color: var(--ink); border: 1px solid var(--line-2); }
+
+  /* ═══ hero ═══ */
+  .hero { padding: 40px 0 24px; }
+  .hero h1 { font-size: clamp(40px, 6.5vw, 72px); line-height: 1.02; letter-spacing: -.035em; font-weight: 600; margin: 0 0 18px; max-width: 14ch; text-wrap: balance; }
+  .hero p { font-size: 17px; color: var(--ink-2); margin: 0 0 28px; max-width: 42ch; }
+  .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .stage { margin-top: 44px; background: var(--raise); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 30px 30px; }
+  .stage-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; gap: 12px; flex-wrap: wrap; }
+  .stage-head .t { font-size: 14px; font-weight: 500; }
+  .stage svg { width: 100%; height: auto; display: block; }
+  .live { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+  .live i { width: 6px; height: 6px; border-radius: 50%; background: #35B36A; animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .3 } }
+  @media (prefers-reduced-motion: reduce) { .live i { animation: none } }
+
+  /* ═══ client wordmarks ═══ */
+  .logos { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 40px; padding: 34px 0 0; }
+  .logos span { font-size: 15px; font-weight: 600; letter-spacing: -.01em; color: var(--ink-3); }
+  .logos .flag { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--line-2); margin-left: 5px; }
+
+  /* ═══ strip ═══ */
+  .strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 26px; padding: 48px 0 52px; border-bottom: 1px solid var(--line); }
+  .strip .v { font-size: 38px; font-weight: 600; letter-spacing: -.03em; }
+  .strip .k { font-size: 13px; color: var(--ink-2); margin-top: 2px; }
+  .strip .bar { height: 3px; border-radius: 2px; background: var(--tint); margin-top: 12px; overflow: hidden; }
+  .strip .bar i { display: block; height: 100%; background: var(--accent); }
+
+  /* ═══ sections ═══ */
+  .section { padding: 72px 0; border-bottom: 1px solid var(--line); }
+  .section-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 34px; gap: 16px; flex-wrap: wrap; }
+  .section-head h2 { font-size: 15px; font-weight: 600; margin: 0; letter-spacing: -.01em; }
+
+  /* ═══ case studies ═══ */
+  .work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+  .case { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--raise); display: flex; flex-direction: column; }
+  .case .vis { background: var(--tint); padding: 22px; border-bottom: 1px solid var(--line); }
+  .case .vis svg { width: 100%; height: auto; display: block; }
+  .case .body { padding: 20px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+  .case h3 { font-size: 17px; font-weight: 600; margin: 0; letter-spacing: -.015em; }
+  .case .who { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+  .case .figs { display: flex; gap: 22px; margin-top: auto; padding-top: 6px; }
+  .case .figs .v { font-size: 22px; font-weight: 600; letter-spacing: -.02em; }
+  .case .figs .k { font-size: 12px; color: var(--ink-2); }
+
+  /* ═══ projects table ═══ */
+  .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--raise); }
+  table { border-collapse: collapse; width: 100%; min-width: 660px; font-size: 14px; }
+  th, td { text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  th { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; background: var(--tint); }
+  tbody tr:last-child td { border-bottom: 0; }
+  .pname { display: flex; align-items: center; gap: 12px; }
+  .pico { width: 32px; height: 32px; border-radius: 9px; background: var(--accent-soft); display: grid; place-items: center; flex: none; }
+  .pico svg { width: 16px; height: 16px; stroke: var(--accent); fill: none; stroke-width: 1.7; }
+  td .pt { font-weight: 600; letter-spacing: -.01em; }
+  td .pc { font-size: 12.5px; color: var(--ink-3); margin-top: 1px; }
+  .stack { display: flex; flex-wrap: wrap; gap: 5px; }
+  .stack span { font-family: var(--mono); font-size: 11px; color: var(--ink-2); border: 1px solid var(--line); border-radius: 5px; padding: 2px 6px; }
+  .pill { font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; white-space: nowrap; display: inline-flex; align-items: center; gap: 5px; }
+  .pill i { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  .pill.live { background: var(--ok-soft); color: var(--ok); }
+  .pill.wip { background: var(--wip-soft); color: var(--wip); }
+
+  /* ═══ live sites — rendered mini previews ═══ */
+  .sites { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+  .site { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--raise); text-decoration: none; display: flex; flex-direction: column; }
+  .site .bar { display: flex; align-items: center; gap: 5px; padding: 9px 11px; border-bottom: 1px solid var(--line); background: var(--tint); }
+  .site .bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--line-2); }
+  .site .bar .u { font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); margin-left: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .mini { aspect-ratio: 16/10; padding: 12px; display: flex; flex-direction: column; gap: 7px; }
+  .mini .mh { height: 9px; border-radius: 3px; width: 42%; }
+  .mini .mt { height: 6px; border-radius: 3px; background: var(--line); width: 72%; }
+  .mini .mt.s { width: 54%; }
+  .mini .mg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: auto; }
+  .mini .mg i { display: block; border-radius: 4px; height: 26px; background: var(--tint); border: 1px solid var(--line); }
+  .site .cap { padding: 11px 13px; font-size: 12.5px; color: var(--ink-2); border-top: 1px solid var(--line); }
+
+  /* ═══ feedback ═══ */
+  .quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(285px, 1fr)); gap: 18px; }
+  .quote { border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; background: var(--raise); display: flex; flex-direction: column; gap: 14px; position: relative; }
+  .quote .qm { font-size: 46px; line-height: 1; color: var(--accent-soft); font-family: Georgia, serif; height: 22px; }
+  .quote p { margin: 0; font-size: 15.5px; line-height: 1.55; }
+  .stars { display: flex; gap: 2px; }
+  .stars svg { width: 13px; height: 13px; fill: var(--star); }
+  .by { display: flex; align-items: center; gap: 11px; margin-top: auto; padding-top: 4px; }
+  .av { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 600; color: #fff; flex: none; letter-spacing: -.01em; }
+  .by .who b { display: block; font-size: 13.5px; font-weight: 600; }
+  .by .who span { display: block; font-size: 12.5px; color: var(--ink-3); }
+
+  /* ═══ services ═══ */
+  .svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+  .svc { border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; display: flex; flex-direction: column; gap: 10px; text-decoration: none; background: var(--raise); }
+  .svc .ico { width: 36px; height: 36px; border-radius: 10px; background: var(--accent-soft); display: grid; place-items: center; }
+  .svc .ico svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 1.6; }
+  .svc h3 { margin: 0; font-size: 16px; font-weight: 600; letter-spacing: -.01em; }
+  .svc p { margin: 0; font-size: 14px; color: var(--ink-2); }
+  .svc .go { font-size: 13px; color: var(--accent); margin-top: 4px; }
+
+  /* ═══ process ═══ */
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+  .step { display: flex; flex-direction: column; gap: 8px; }
+  .step .n { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line-2); display: grid; place-items: center; font-family: var(--mono); font-size: 11px; color: var(--accent); background: var(--raise); }
+  .step b { font-size: 16px; font-weight: 600; letter-spacing: -.01em; }
+  .step span.d { font-size: 14px; color: var(--ink-2); }
+
+  /* ═══ about ═══ */
+  .about { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: start; }
+  .about .who-row { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .about .who-row .mono-av { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(140deg, var(--accent), var(--accent-2)); color: #fff; display: grid; place-items: center; font-size: 18px; font-weight: 600; }
+  .about .who-row b { font-size: 17px; letter-spacing: -.01em; display: block; }
+  .about .who-row span { font-size: 13.5px; color: var(--ink-3); }
+  .about p { margin: 0 0 14px; font-size: 16px; color: var(--ink-2); max-width: 52ch; }
+  .about .facts { display: flex; flex-direction: column; gap: 12px; }
+  .about .facts div { display: flex; justify-content: space-between; gap: 14px; border-bottom: 1px solid var(--line); padding-bottom: 9px; font-size: 14px; }
+  .about .facts span:last-child { color: var(--ink-2); font-family: var(--mono); font-size: 12.5px; }
+
+  /* ═══ closing ═══ */
+  .close { padding: 80px 0 96px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+  .close h2 { font-size: clamp(28px, 4vw, 42px); letter-spacing: -.03em; margin: 0; font-weight: 600; max-width: 18ch; }
+  .close .meta { font-size: 14px; color: var(--ink-2); }
+
+  /* ═══ chat ═══ */
+  .chat-shell { display: grid; grid-template-columns: 232px 1fr; min-height: 82vh; background: var(--raise); }
+  .side { border-right: 1px solid var(--line); padding: 18px 14px; display: flex; flex-direction: column; gap: 18px; background: var(--paper); }
+  .side .new { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; border: 1px solid var(--line-2); border-radius: 10px; padding: 9px 12px; cursor: pointer; background: var(--raise); color: var(--ink); font-family: inherit; }
+  .side .grp { display: flex; flex-direction: column; gap: 2px; }
+  .side .grp .h { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); padding: 6px 10px; }
+  .side .item { font-size: 13.5px; color: var(--ink-2); padding: 7px 10px; border-radius: 8px; cursor: pointer; }
+  .side .item.on { background: var(--accent-soft); color: var(--ink); }
+  .thread { display: flex; flex-direction: column; }
+  .thread-body { flex: 1; padding: 34px 24px 20px; display: flex; flex-direction: column; gap: 26px; }
+  .msg { display: flex; gap: 13px; max-width: 660px; }
+  .msg .mav { width: 27px; height: 27px; border-radius: 8px; flex: none; display: grid; place-items: center; font-size: 11px; font-weight: 600; font-family: var(--mono); }
+  .msg.me .mav { background: var(--tint); color: var(--ink-2); }
+  .msg.ai .mav { background: var(--accent); color: #fff; }
+  .msg .txt { font-size: 15.5px; }
+  .msg .txt p { margin: 0 0 10px; } .msg .txt p:last-child { margin-bottom: 0; }
+  .inline-card { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-top: 12px; display: flex; flex-direction: column; gap: 8px; max-width: 430px; background: var(--paper); }
+  .inline-card .row { display: flex; justify-content: space-between; font-size: 13px; gap: 12px; }
+  .inline-card .row span:last-child { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .inline-quote { display: flex; gap: 10px; align-items: center; margin-top: 12px; padding: 12px 14px; border-radius: 12px; background: var(--paper); border: 1px solid var(--line); max-width: 430px; }
+  .inline-quote .av { width: 30px; height: 30px; font-size: 11px; }
+  .inline-quote p { margin: 0; font-size: 13.5px; color: var(--ink-2); }
+  .inline-cta { display: inline-flex; align-items: center; gap: 7px; align-self: flex-start; background: var(--ink); color: #fff; border-radius: 999px; padding: 8px 15px; font-size: 13.5px; font-weight: 500; text-decoration: none; margin-top: 12px; }
+  .composer { border-top: 1px solid var(--line); padding: 16px 24px 26px; }
+  .composer .box { display: flex; align-items: center; gap: 10px; border: 1px solid var(--line-2); border-radius: 14px; padding: 12px 14px; max-width: 700px; margin: 0 auto; background: var(--raise); }
+  .composer input { flex: 1; border: 0; background: transparent; font: inherit; font-size: 15px; color: var(--ink); outline: none; }
+  .composer .send { width: 30px; height: 30px; border-radius: 8px; background: var(--ink); color: #fff; display: grid; place-items: center; border: 0; cursor: pointer; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; max-width: 700px; margin: 12px auto 0; }
+  .chip { font-size: 13px; color: var(--ink-2); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; cursor: pointer; background: var(--raise); font-family: inherit; }
+  .composer .note { max-width: 700px; margin: 10px auto 0; font-size: 12px; color: var(--ink-3); text-align: center; }
+
+  /* ═══ notes ═══ */
+  .notes { padding: 56px 0 90px; }
+  .notes h2 { font-size: 15px; margin: 0 0 18px; }
+  .notes ul { margin: 0 0 34px; padding-left: 18px; display: flex; flex-direction: column; gap: 9px; max-width: 66ch; }
+  .notes li { font-size: 14.5px; color: var(--ink-2); }
+  .notes strong { color: var(--ink); font-weight: 600; }
+  code { font-family: var(--mono); font-size: .88em; background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; }
+
+  @media (max-width: 820px) { .about { grid-template-columns: 1fr; gap: 26px; } }
+  @media (max-width: 720px) { .chat-shell { grid-template-columns: 1fr; } .side { display: none; } }
+</style>
+
+<div class="review-bar">
+  <span class="label">buildwithakash.in · redesign mock · light · not wired</span>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-screen="site">Site</button>
+    <button class="tab" role="tab" aria-selected="false" data-screen="chat">Chat</button>
+    <button class="tab" role="tab" aria-selected="false" data-screen="notes">Notes</button>
+  </div>
+</div>
+
+<!-- ══════════════════ SITE ══════════════════ -->
+<div class="screen active" id="screen-site">
+  <div class="wrap">
+
+    <nav class="nav">
+      <span class="mark"><span class="dot"></span> Akash Yadav</span>
+      <div class="nav-right">
+        <a href="#work">Work</a><a href="#projects">Projects</a><a href="#services">Services</a>
+        <a class="btn ghost" href="#" data-goto="chat">Ask</a>
+        <a class="btn" href="#">Book a call</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <h1>Systems that work the night shift.</h1>
+      <p>Nine builds in production. Four countries. Built solo.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#">Book a call</a>
+        <a class="btn ghost" href="#" data-goto="chat">Ask about the work</a>
+      </div>
+
+      <div class="stage">
+        <div class="stage-head">
+          <span class="t">Hair education business — operations</span>
+          <span class="live"><i></i> running</span>
+        </div>
+        <svg viewBox="0 0 900 250" role="img" aria-label="Six agents reporting to one coordinator">
+          <g stroke="#DAD9E4" stroke-width="1.2">
+            <line x1="450" y1="125" x2="170" y2="58"/><line x1="450" y1="125" x2="170" y2="192"/>
+            <line x1="450" y1="125" x2="730" y2="58"/><line x1="450" y1="125" x2="730" y2="192"/>
+            <line x1="450" y1="125" x2="450" y2="34"/><line x1="450" y1="125" x2="450" y2="216"/>
+          </g>
+          <g fill="#8B8E97" font-family="ui-monospace, monospace" font-size="12">
+            <text x="88" y="50">orders</text><text x="90" y="196">leads</text>
+            <text x="768" y="50">email</text><text x="768" y="196">churn</text>
+            <text x="416" y="24">content</text><text x="412" y="238">billing</text>
+          </g>
+          <g fill="#FFFFFF" stroke="#C9C8D6" stroke-width="1.2">
+            <circle cx="170" cy="58" r="13"/><circle cx="170" cy="192" r="13"/>
+            <circle cx="730" cy="58" r="13"/><circle cx="730" cy="192" r="13"/>
+            <circle cx="450" cy="34" r="13"/><circle cx="450" cy="216" r="13"/>
+          </g>
+          <circle cx="450" cy="125" r="31" fill="#3D3BD6"/>
+          <text x="450" y="130" text-anchor="middle" fill="#fff" font-family="ui-monospace, monospace" font-size="12">hub</text>
+        </svg>
+      </div>
+
+      <div class="logos">
+        <span>Hair Mastery <em class="flag">CH</em></span>
+        <span>Modom Grooming <em class="flag">CH</em></span>
+        <span>Wig Shop <em class="flag">CH</em></span>
+        <span>Hair Looks <em class="flag">IN</em></span>
+        <span>Vantalo <em class="flag">IN</em></span>
+        <span>Sendpookie <em class="flag">US</em></span>
+      </div>
+    </section>
+
+    <div class="strip">
+      <div><div class="v num">32<span style="color:var(--ink-3)">/42</span></div><div class="k">problems automated</div><div class="bar"><i style="width:76%"></i></div></div>
+      <div><div class="v num">$27</div><div class="k">to run overnight</div><div class="bar"><i style="width:12%"></i></div></div>
+      <div><div class="v num">₹20K</div><div class="k">monthly revenue saved</div><div class="bar"><i style="width:64%"></i></div></div>
+      <div><div class="v num">10 hrs</div><div class="k">back per week</div><div class="bar"><i style="width:48%"></i></div></div>
+      <div><div class="v num">36K</div><div class="k">views, one post</div><div class="bar"><i style="width:88%"></i></div></div>
+    </div>
+
+    <!-- ── case studies ── -->
+    <section class="section" id="work">
+      <div class="section-head"><h2>Work</h2><span class="eyebrow">the three worth explaining</span></div>
+      <div class="work-grid">
+
+        <article class="case">
+          <div class="vis">
+            <svg viewBox="0 0 320 120" role="img" aria-label="Missed call becomes a WhatsApp booking">
+              <g font-family="ui-monospace, monospace" font-size="10" fill="#8B8E97">
+                <text x="8" y="22">22:40 · missed call</text><text x="8" y="86">22:40 · booked</text>
+              </g>
+              <rect x="6" y="30" width="120" height="26" rx="6" fill="#FFF" stroke="#D3D2CE"/>
+              <path d="M132 43 H196" stroke="#3D3BD6" stroke-width="1.5"/>
+              <path d="M190 38 L196 43 L190 48" stroke="#3D3BD6" stroke-width="1.5" fill="none"/>
+              <rect x="200" y="30" width="114" height="26" rx="6" fill="#3D3BD6"/>
+              <text x="257" y="47" text-anchor="middle" fill="#fff" font-family="ui-monospace, monospace" font-size="10">whatsapp</text>
+              <rect x="6" y="94" width="308" height="4" rx="2" fill="#35B36A"/>
+            </svg>
+          </div>
+          <div class="body">
+            <span class="who">Premium salon</span>
+            <h3>Books while it's closed</h3>
+            <div class="figs">
+              <div><div class="v num">₹20K+</div><div class="k">saved monthly</div></div>
+              <div><div class="v num">₹0</div><div class="k">to run</div></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="vis">
+            <svg viewBox="0 0 320 120" role="img" aria-label="Sixty failed payments, one in three recovered">
+              <g id="dots"></g>
+              <text x="8" y="112" font-family="ui-monospace, monospace" font-size="10" fill="#8B8E97">60 failed payments · 1 in 3 back</text>
+            </svg>
+          </div>
+          <div class="body">
+            <span class="who">Hair education</span>
+            <h3>Rescues failed payments</h3>
+            <div class="figs">
+              <div><div class="v num">30%+</div><div class="k">recovered</div></div>
+              <div><div class="v num">1 wk</div><div class="k">to build</div></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="vis">
+            <svg viewBox="0 0 320 120" role="img" aria-label="One course becomes many pieces of content">
+              <rect x="6" y="46" width="66" height="28" rx="6" fill="#3D3BD6"/>
+              <text x="39" y="64" text-anchor="middle" fill="#fff" font-family="ui-monospace, monospace" font-size="10">course</text>
+              <g stroke="#D3D2CE" fill="none">
+                <path d="M78 60 C110 60 110 20 148 20"/><path d="M78 60 C110 60 110 45 148 45"/>
+                <path d="M78 60 C110 60 110 75 148 75"/><path d="M78 60 C110 60 110 100 148 100"/>
+              </g>
+              <g fill="#FFF" stroke="#D3D2CE">
+                <rect x="150" y="8" width="164" height="24" rx="6"/><rect x="150" y="33" width="164" height="24" rx="6"/>
+                <rect x="150" y="63" width="164" height="24" rx="6"/><rect x="150" y="88" width="164" height="24" rx="6"/>
+              </g>
+              <g fill="#5B5E66" font-family="ui-monospace, monospace" font-size="10">
+                <text x="160" y="24">reel</text><text x="160" y="49">carousel</text>
+                <text x="160" y="79">email</text><text x="160" y="104">caption</text>
+              </g>
+            </svg>
+          </div>
+          <div class="body">
+            <span class="who">Hair education</span>
+            <h3>One course, a week of content</h3>
+            <div class="figs">
+              <div><div class="v num">36K</div><div class="k">views, one post</div></div>
+              <div><div class="v num">10 hrs</div><div class="k">saved weekly</div></div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ── every project ── -->
+    <section class="section" id="projects">
+      <div class="section-head"><h2>Everything built</h2><span class="eyebrow">9 projects · 4 countries</span></div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Project</th><th>Stack</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="pname"><span class="pico"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span><span><span class="pt">Hair Mastery</span><span class="pc">E-learning · Switzerland</span></span></div></td>
+              <td><div class="stack"><span>WordPress</span><span>Elementor</span><span>PostgreSQL</span></div></td>
+              <td><span class="pill live"><i></i>Live</span></td>
+            </tr>
+            <tr>
+              <td><div class="pname"><span class="pico"><svg viewBox="0 0 24 24"><path d="M6 6h13l-1.5 9H7.5z"/><circle cx="9" cy="19" r="1.4"/><circle cx="17" cy="19" r="1.4"/></svg></span><span><span class="pt">Modom Grooming</span><span class="pc">E-commerce · Switzerland</span></span></div></td>
+              <td><div class="stack"><span>WooCommerce</span><span>Custom plugins</span><span>SEO</span></div></td>
+              <td><span class="pill live"><i></i>Live</span></td>
+            </tr>
+            <tr>
+              <td><div class="pname"><span class="pico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="4" r="2"/><circle cx="20" cy="16" r="2"/><circle cx="4" cy="16" r="2"/><path d="M12 7v2M14.5 13.5 18 15M9.5 13.5 6 15"/></svg></span><span><span class="pt">Operations agents</span><span class="pc">Multi-agent ops · hair education</span></span></div></td>
+              <td><div class="stack"><span>OpenClaw</span><span>Slack</span><span>MCP</span></div></td>
+              <td><span class="pill live"><i></i>Live</span></td>
+            </tr>
+            <tr>
+              <td><div class="pname"><span class="pico"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></span><span><span class="pt">Salon booking</span><span class="pc">24/7 receptionist · India</span></span></div></td>
+              <td><div class="stack"><span>Booking engine</span><span>WhatsApp</span><span>Mobile-first</span></div></td>
+              <td><span class="pill wip"><i></i>Building</span></td>
+            </tr>
+            <tr>
+              <td><div class="pname"><span class="pico"><svg viewBox="0 0 24 24"><path d="M4 20v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2"/><circle cx="12" cy="8" r="3.4"/></svg></span><span><span class="pt">Visitor Management</span><span class="pc">Operations app · Houston, USA</span></span></div></td>
+              <td><div class="stack"><span>MongoDB</span><span>Express</span><span>React</span><span>Node</span></div></td>
+              <td><span class="pill live"><i></i>In use</span></td>
+            </tr>
+            <tr>
+              <td><div class="pname"><span class="pico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 10h6M9 14h4"/></svg></span><span><span class="pt">AI sales assistant</span><span class="pc">Qualifies leads, books meetings</span></span></div></td>
+              <td><div class="stack"><span>Python</span><span>MCP</span><span>Webhooks</span></div></td>
+              <td><span class="pill live"><i></i>Live</span></td>
+            </tr>
+            <tr>
+              <td><div class="pname"><span class="pico"><svg viewBox="0 0 24 24"><path d="M6 6h13l-1.5 9H7.5z"/><circle cx="9" cy="19" r="1.4"/><circle cx="17" cy="19" r="1.4"/></svg></span><span><span class="pt">Wig Shop</span><span class="pc">Storefront · hair education</span></span></div></td>
+              <td><div class="stack"><span>WooCommerce</span></div></td>
+              <td><span class="pill live"><i></i>Live</span></td>
+            </tr>
+            <tr>
+              <td><div class="pname"><span class="pico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c3 3 3 13 0 16"/></svg></span><span><span class="pt">Sendpookie</span><span class="pc">Product site</span></span></div></td>
+              <td><div class="stack"><span>React</span><span>Tailwind</span></div></td>
+              <td><span class="pill live"><i></i>Live</span></td>
+            </tr>
+            <tr>
+              <td><div class="pname"><span class="pico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c3 3 3 13 0 16"/></svg></span><span><span class="pt">Vantalo</span><span class="pc">Agency site</span></span></div></td>
+              <td><div class="stack"><span>React</span><span>Tailwind</span><span>Framer Motion</span></div></td>
+              <td><span class="pill live"><i></i>Live</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── live sites ── -->
+    <section class="section">
+      <div class="section-head"><h2>Sites you can open</h2><span class="eyebrow">real URLs, still running</span></div>
+      <div class="sites">
+        <a class="site" href="#"><div class="bar"><i></i><i></i><i></i><span class="u">hair-mastery.com</span></div>
+          <div class="mini"><span class="mh" style="background:#3D3BD6"></span><span class="mt"></span><span class="mt s"></span><span class="mg"><i></i><i></i><i></i></span></div>
+          <div class="cap">E-learning for hair professionals</div></a>
+        <a class="site" href="#"><div class="bar"><i></i><i></i><i></i><span class="u">modomgrooming.com</span></div>
+          <div class="mini"><span class="mh" style="background:#1F2937"></span><span class="mt"></span><span class="mt s"></span><span class="mg"><i></i><i></i><i></i></span></div>
+          <div class="cap">Grooming e-commerce, Switzerland</div></a>
+        <a class="site" href="#"><div class="bar"><i></i><i></i><i></i><span class="u">hair-mastery.com/wig-shop</span></div>
+          <div class="mini"><span class="mh" style="background:#8A6A12"></span><span class="mt"></span><span class="mt s"></span><span class="mg"><i></i><i></i><i></i></span></div>
+          <div class="cap">Storefront and fulfilment</div></a>
+        <a class="site" href="#"><div class="bar"><i></i><i></i><i></i><span class="u">sendpookie.com</span></div>
+          <div class="mini"><span class="mh" style="background:#D9488A"></span><span class="mt"></span><span class="mt s"></span><span class="mg"><i></i><i></i><i></i></span></div>
+          <div class="cap">Product site</div></a>
+        <a class="site" href="#"><div class="bar"><i></i><i></i><i></i><span class="u">vantalo.in</span></div>
+          <div class="mini"><span class="mh" style="background:#237A4B"></span><span class="mt"></span><span class="mt s"></span><span class="mg"><i></i><i></i><i></i></span></div>
+          <div class="cap">Agency site</div></a>
+        <a class="site" href="#"><div class="bar"><i></i><i></i><i></i><span class="u">hair-mastery.com/agency</span></div>
+          <div class="mini"><span class="mh" style="background:#5B5E66"></span><span class="mt"></span><span class="mt s"></span><span class="mg"><i></i><i></i><i></i></span></div>
+          <div class="cap">Agency arm</div></a>
+      </div>
+    </section>
+
+    <!-- ── feedback ── -->
+    <section class="section">
+      <div class="section-head"><h2>What they said</h2><span class="eyebrow">4 clients · 3 countries</span></div>
+      <div class="quotes">
+        <div class="quote">
+          <span class="qm">“</span>
+          <div class="stars" aria-label="5 out of 5"><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div>
+          <p>“Students find it easier to discover courses, and we get compliments on the experience every week.”</p>
+          <div class="by"><span class="av" style="background:#3D3BD6">PK</span><span class="who"><b>Pablo Keumin</b><span>Founder, Hair Mastery</span></span></div>
+        </div>
+        <div class="quote">
+          <span class="qm">“</span>
+          <div class="stars" aria-label="5 out of 5"><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div>
+          <p>“From structure to small UX details, everything was thought through. The result reflects our brand exactly how we imagined.”</p>
+          <div class="by"><span class="av" style="background:#237A4B">OR</span><span class="who"><b>Oliver Rust</b><span>Co-founder, Hair Mastery</span></span></div>
+        </div>
+        <div class="quote">
+          <span class="qm">“</span>
+          <div class="stars" aria-label="5 out of 5"><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div>
+          <p>“Pages load faster, checkout is simpler, and customers tell us the store feels premium. Clear impact on sales.”</p>
+          <div class="by"><span class="av" style="background:#B4471F">MN</span><span class="who"><b>Marco Netali</b><span>Founder, Modom Grooming, Switzerland</span></span></div>
+        </div>
+        <div class="quote">
+          <span class="qm">“</span>
+          <div class="stars" aria-label="5 out of 5"><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><svg viewBox="0 0 24 24"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div>
+          <p>“Clients see our work, trust our brand more, and bookings have become more consistent.”</p>
+          <div class="by"><span class="av" style="background:#5B5E66">S</span><span class="who"><b>Shadab</b><span>Owner, Hair Looks, India</span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── services ── -->
+    <section class="section" id="services">
+      <div class="section-head"><h2>Services</h2><span class="eyebrow">30-min call, no charge</span></div>
+      <div class="svc-grid">
+        <a class="svc" href="#"><span class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg></span><h3>Automation</h3><p>Agents that handle orders, leads and bookings.</p><span class="go">Book about this →</span></a>
+        <a class="svc" href="#"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h13"/></svg></span><h3>Content pipeline</h3><p>One recording, distributed everywhere.</p><span class="go">Book about this →</span></a>
+        <a class="svc" href="#"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c3 3 3 13 0 16"/></svg></span><h3>Websites & apps</h3><p>Built to close, not to look expensive.</p><span class="go">Book about this →</span></a>
+      </div>
+    </section>
+
+    <!-- ── process ── -->
+    <section class="section">
+      <div class="section-head"><h2>How it goes</h2><span class="eyebrow">three steps</span></div>
+      <div class="steps">
+        <div class="step"><span class="n">01</span><b>Free audit</b><span class="d">Thirty minutes. You leave knowing what to automate first, and what it costs.</span></div>
+        <div class="step"><span class="n">02</span><b>System design</b><span class="d">The exact stack, with real numbers, before anything is built.</span></div>
+        <div class="step"><span class="n">03</span><b>Build and hand off</b><span class="d">A working system, documented, that you own.</span></div>
+      </div>
+    </section>
+
+    <!-- ── about ── -->
+    <section class="section">
+      <div class="section-head"><h2>Who is doing the work</h2><span class="eyebrow">just me</span></div>
+      <div class="about">
+        <div>
+          <div class="who-row">
+            <span class="mono-av">AY</span>
+            <span><b>Akash Yadav</b><span>Systems and automation engineer</span></span>
+          </div>
+          <p>Self-taught, from a small town in UP. Started as a video editor in 2016, went back to finish a CS degree, then came back to building.</p>
+          <p>No team, no account managers. You talk to the person writing the code.</p>
+        </div>
+        <div class="facts">
+          <div><span>Based</span><span>India</span></div>
+          <div><span>Clients in</span><span>DE · CH · US · TH</span></div>
+          <div><span>In production</span><span>9 builds</span></div>
+          <div><span>Calls</span><span>Tue · Thu · Sat</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="close">
+      <h2>Tell me what is eating your week.</h2>
+      <a class="btn" href="#">Book a 30-minute audit</a>
+      <span class="meta">Tuesday, Thursday, Saturday · 1–8pm IST · no charge, no pitch</span>
+    </section>
+
+  </div>
+</div>
+
+<!-- ══════════════════ CHAT ══════════════════ -->
+<div class="screen" id="screen-chat">
+  <div class="chat-shell">
+    <aside class="side">
+      <button class="new">＋ New question</button>
+      <div class="grp"><span class="h">Today</span><span class="item on">Cost to automate bookings</span><span class="item">What is the salon system</span></div>
+      <div class="grp"><span class="h">Start here</span><span class="item">What have you built?</span><span class="item">How do you price?</span><span class="item">Do you maintain it after?</span></div>
+    </aside>
+
+    <div class="thread">
+      <div class="thread-body">
+        <div class="msg me"><span class="mav">A</span><div class="txt"><p>I run a salon. We lose calls after 8pm. What would that cost to fix?</p></div></div>
+        <div class="msg ai"><span class="mav">◆</span>
+          <div class="txt">
+            <p>Built that exact thing. WhatsApp takes the booking, assigns the barber, syncs the schedule so nothing double-books.</p>
+            <div class="inline-card">
+              <div class="row"><span>Revenue protected</span><span>₹20,000+/mo</span></div>
+              <div class="row"><span>Running cost</span><span>₹0</span></div>
+              <div class="row"><span>Build time</span><span>~2 weeks</span></div>
+            </div>
+            <p style="margin-top:12px">Your number depends on how you take bookings now. Thirty minutes and I can give you a real one.</p>
+            <a class="inline-cta" href="#">Book the automation audit →</a>
+          </div>
+        </div>
+        <div class="msg me"><span class="mav">A</span><div class="txt"><p>Who else have you done this for?</p></div></div>
+        <div class="msg ai"><span class="mav">◆</span>
+          <div class="txt">
+            <p>A hair education business in Switzerland — six agents handling orders, leads, churn and content. 32 of their 42 known problems are automated, and it costs $27 to run overnight.</p>
+            <div class="inline-quote">
+              <span class="av" style="background:#3D3BD6">PK</span>
+              <p>“Students find it easier to discover courses, and we get compliments every week.” — Pablo, founder</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="composer">
+        <div class="box"><input placeholder="Ask anything about the work" aria-label="Ask anything about the work"><button class="send" aria-label="Send">↑</button></div>
+        <div class="chips"><button class="chip">Show me a real system</button><button class="chip">What does it cost to run?</button><button class="chip">Do you maintain it after?</button></div>
+        <p class="note">Answers come from real projects only. It will say so if it does not know.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ NOTES ══════════════════ -->
+<div class="screen" id="screen-notes">
+  <div class="wrap notes">
+    <h2>This pass</h2>
+    <ul>
+      <li><strong>Light only.</strong> No dark variant — every colour is declared, so it stays white whatever the visitor's system is set to. Matches your carousel rule.</li>
+      <li><strong>Client wordmarks under the hero.</strong> Six names with country tags, straight after the diagram. Cheapest credibility on the page.</li>
+      <li><strong>Testimonials got faces.</strong> Coloured initial avatars, five stars, and a quote mark. Real names and real words — Pablo, Oliver, Marco, Shadab.</li>
+      <li><strong>Project rows got icons.</strong> Category at a glance: cart for commerce, calendar for booking, node graph for the agent system.</li>
+      <li><strong>Live sites are rendered, not labelled.</strong> Each tile draws a tiny page in that site's colour instead of printing its name.</li>
+      <li><strong>Stat bars.</strong> Each number carries a small proportion bar, so 32/42 reads as a fraction rather than just digits.</li>
+      <li><strong>Chat shows a client quote inline</strong> with the avatar — proof arriving mid-conversation.</li>
+    </ul>
+
+    <h2>Still open</h2>
+    <ul>
+      <li><strong>Real screenshots</strong> would replace the mini-previews. Best single upgrade available.</li>
+      <li><strong>A photo of you</strong> in the about section. Right now it is an "AY" monogram.</li>
+      <li><strong>Salon booking says “Building”</strong> — your project file says under development. Confirm before ship.</li>
+      <li><strong>$27 or $6?</strong> Still unanswered, and the assistant repeats whatever sits in <code>api/_facts.js</code>.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  const dots = document.getElementById("dots");
+  if (dots) {
+    for (let i = 0; i < 60; i++) {
+      const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      c.setAttribute("cx", 12 + (i % 20) * 15.6);
+      c.setAttribute("cy", 26 + Math.floor(i / 20) * 24);
+      c.setAttribute("r", 5);
+      c.setAttribute("fill", i % 3 === 0 ? "#35B36A" : "#E6E5E2");
+      dots.appendChild(c);
+    }
+  }
+  const tabs = document.querySelectorAll(".tab");
+  const show = (name) => {
+    document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
+    document.getElementById("screen-" + name).classList.add("active");
+    tabs.forEach((t) => t.setAttribute("aria-selected", String(t.dataset.screen === name)));
+    window.scrollTo({ top: 0 });
+  };
+  tabs.forEach((t) => t.addEventListener("click", () => show(t.dataset.screen)));
+  document.querySelectorAll("[data-goto]").forEach((el) =>
+    el.addEventListener("click", (e) => { e.preventDefault(); show(el.dataset.goto); })
+  );
+</script>

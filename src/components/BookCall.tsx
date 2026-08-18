@@ -1,14 +1,20 @@
 import { motion, Variants } from "framer-motion";
 import { Calendar, ArrowUpRight } from "lucide-react";
 import { fadeInUp, staggerContainer } from "../utils/animations";
+import { withAttribution } from "@/lib/attribution";
+
+/* Cal.com carries UTMs through to the booking webhook, so a booked call can be
+   traced back to the reel that produced it. Falls back to the Google Calendar
+   link when VITE_CAL_LINK is not set, so booking never breaks. */
+const CAL_LINK = import.meta.env.VITE_CAL_LINK as string | undefined;
+const GOOGLE_CALENDAR_LINK = "https://calendar.app.google/mS1urwHfqaaBTso3A";
 
 const BookCall = () => {
   const handleBookingClick = () => {
-    window.open(
-      "https://calendar.app.google/mS1urwHfqaaBTso3A",
-      "GoogleCalendar",
-      "width=600,height=700,resizable=yes,scrollbars=yes"
-    );
+    const url = CAL_LINK ? withAttribution(CAL_LINK) : GOOGLE_CALENDAR_LINK;
+    // A plain new tab rather than a sized popup — fixed-size popups are blocked
+    // or unusable on mobile, which is where most reel traffic arrives.
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (

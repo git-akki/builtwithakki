@@ -1,6 +1,13 @@
 import { motion, Variants } from "framer-motion";
 import { Bot, Megaphone, Globe, Check, ArrowRight } from "lucide-react";
 import { fadeInUp, staggerContainer } from "../utils/animations";
+import { withAttribution } from "@/lib/attribution";
+
+/* One booking type per service, so a booked call already says which service it
+   is about and which piece of content produced it. */
+const CAL_BASE = "https://cal.com/akash-yadav-xfz9ms";
+
+const bookingUrl = (slug: string) => withAttribution(`${CAL_BASE}/${slug}`);
 
 const services = [
   {
@@ -11,6 +18,8 @@ const services = [
     proof: "$27 overnight run · 32/42 problems solved",
     items: ["Hub-and-spoke agent architecture", "Slack / WhatsApp / email integrations", "Cost controls & audit trail"],
     accent: true,
+    calSlug: "automation-audit",
+    cta: "Book an automation audit",
   },
   {
     icon: Megaphone,
@@ -20,6 +29,8 @@ const services = [
     proof: "36K views · 533 saves · 59 new followers",
     items: ["NotebookLM + MCP content engine", "ManyChat keyword automation", "MailerLite email sequences"],
     accent: false,
+    calSlug: "content-audit",
+    cta: "Book a content audit",
   },
   {
     icon: Globe,
@@ -29,6 +40,8 @@ const services = [
     proof: "7+ live projects · 3 countries",
     items: ["React + Supabase / MERN", "Booking systems & e-commerce", "WordPress + WooCommerce"],
     accent: false,
+    calSlug: "website-project",
+    cta: "Book a project call",
   },
 ];
 
@@ -94,6 +107,14 @@ const Services = () => (
 
             <div className={`pt-5 border-t ${s.accent ? "border-primary/15" : "border-border/50"}`}>
               <p className="text-xs font-medium text-muted-foreground/70 tabular-nums">{s.proof}</p>
+              <a
+                href={bookingUrl(s.calSlug)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:gap-2.5 transition-all duration-200"
+              >
+                {s.cta} <ArrowRight className="w-3.5 h-3.5" />
+              </a>
             </div>
           </motion.div>
         ))}
