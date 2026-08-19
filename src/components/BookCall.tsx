@@ -1,20 +1,44 @@
+import { useEffect } from "react";
 import { motion, Variants } from "framer-motion";
 import { Calendar, ArrowUpRight } from "lucide-react";
 import { fadeInUp, staggerContainer } from "../utils/animations";
-import { withAttribution } from "@/lib/attribution";
+import { attributionSource, getAttribution } from "@/lib/attribution";
+import { loadCalEmbed } from "@/lib/calEmbed";
 
 /* Cal.com carries UTMs through to the booking webhook, so a booked call can be
    traced back to the reel that produced it. Falls back to the Google Calendar
    link when VITE_CAL_LINK is not set, so booking never breaks. */
 const CAL_LINK = import.meta.env.VITE_CAL_LINK as string | undefined;
 const GOOGLE_CALENDAR_LINK = "https://calendar.app.google/mS1urwHfqaaBTso3A";
+const CAL_NAMESPACE = "book-call";
+
+/* "https://cal.com/akash/30min" -> "akash/30min" */
+const calEventPath = CAL_LINK ? new URL(CAL_LINK).pathname.replace(/^\//, "") : "";
 
 const BookCall = () => {
-  const handleBookingClick = () => {
-    const url = CAL_LINK ? withAttribution(CAL_LINK) : GOOGLE_CALENDAR_LINK;
-    // A plain new tab rather than a sized popup — fixed-size popups are blocked
-    // or unusable on mobile, which is where most reel traffic arrives.
-    window.open(url, "_blank", "noopener,noreferrer");
+  useEffect(() => {
+    if (!CAL_LINK) return;
+    const cal = loadCalEmbed(CAL_NAMESPACE);
+    cal?.("ui", {
+      hideEventTypeDetails: false,
+      layout: "month_view",
+    });
+  }, []);
+
+  const openGoogleCalendarFallback = () => {
+    window.open(GOOGLE_CALENDAR_LINK, "_blank", "noopener,noreferrer");
+  };
+
+  /* Same UTM/source data withAttribution() used to append to the outbound
+     link — now passed as embed config so the popup's booking URL carries it. */
+  const attr = getAttribution();
+  const calConfig = {
+    layout: "month_view",
+    ...(attr.source ? { utm_source: attr.source } : {}),
+    ...(attr.medium ? { utm_medium: attr.medium } : {}),
+    ...(attr.campaign ? { utm_campaign: attr.campaign } : {}),
+    ...(attr.content ? { utm_content: attr.content } : {}),
+    "metadata[source]": attributionSource("book-call"),
   };
 
   return (
@@ -48,10 +72,16 @@ const BookCall = () => {
             </motion.p>
 
             <motion.div variants={staggerContainer as unknown as Variants} className="flex flex-col sm:flex-row gap-4">
-              {/* Styled button opens Google Calendar popup */}
+              {/* CAL_LINK set: opens the Cal.com booking modal in place (via
+                  data-cal-link — embed.js attaches the click listener once
+                  loadCalEmbed() has run). Otherwise falls back to a new-tab
+                  Google Calendar link so booking never breaks. */}
               <motion.button
                 variants={fadeInUp as unknown as Variants}
-                onClick={handleBookingClick}
+                onClick={CAL_LINK ? undefined : openGoogleCalendarFallback}
+                data-cal-namespace={CAL_LINK ? CAL_NAMESPACE : undefined}
+                data-cal-link={CAL_LINK ? calEventPath : undefined}
+                data-cal-config={CAL_LINK ? JSON.stringify(calConfig) : undefined}
                 className="btn-premium group inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-md"
               >
                 Schedule a Call
