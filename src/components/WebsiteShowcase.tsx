@@ -140,10 +140,11 @@ const TiltCard = ({ project }: { project: Project }) => {
           href={project.url}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label={`Open ${project.title} in a new tab`}
           className="p-1 rounded hover:bg-background/60 transition-colors text-muted-foreground/50 hover:text-foreground"
           onClick={(e) => e.stopPropagation()}
         >
-          <ExternalLink className="w-3 h-3" />
+          <ExternalLink className="w-3 h-3" aria-hidden="true" />
         </a>
       </div>
 

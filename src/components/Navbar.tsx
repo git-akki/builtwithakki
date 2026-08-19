@@ -13,8 +13,8 @@ const Navbar = () => {
       <div className="container">
         <nav className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 text-xl font-bold tracking-tight">
-            <ClawBotIcon size={28} className="text-primary" />
+          <a href="/" aria-label="Akash Yadav — home" className="flex items-center gap-2 text-xl font-bold tracking-tight">
+            <ClawBotIcon size={28} className="text-primary" aria-hidden="true" />
             AY<span className="text-primary">.</span>
           </a>
 
@@ -24,7 +24,7 @@ const Navbar = () => {
               variants={fadeInUp as unknown as Variants}
               initial="hidden"
               animate="visible"
-              href="#book-call"
+              href="/#book-call"
               className="btn-premium px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-lg"
             >
               Book a Call

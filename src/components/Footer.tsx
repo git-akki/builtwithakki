@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { reopenCookieConsent } from "@/components/CookieConsent";
 
 const Footer = () => {
   return (
@@ -17,11 +18,19 @@ const Footer = () => {
             <span className="text-sm text-muted-foreground">Web & AI Systems Engineer</span>
           </div>
 
-          <nav className="flex items-center gap-6 text-sm text-muted-foreground">
-            <a href="#services" className="hover:text-foreground transition-colors">Services</a>
-            <a href="#about" className="hover:text-foreground transition-colors">About</a>
-            <a href="#book-call" className="hover:text-foreground transition-colors">Book Call</a>
-            <a href="#contact" className="hover:text-foreground transition-colors">Contact</a>
+          <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
+            <a href="/#services" className="hover:text-foreground transition-colors">Services</a>
+            <a href="/#about" className="hover:text-foreground transition-colors">About</a>
+            <a href="/#book-call" className="hover:text-foreground transition-colors">Book Call</a>
+            <a href="/#contact" className="hover:text-foreground transition-colors">Contact</a>
+            <a href="/privacy" className="hover:text-foreground transition-colors">Privacy</a>
+            <button
+              type="button"
+              onClick={reopenCookieConsent}
+              className="hover:text-foreground transition-colors cursor-pointer"
+            >
+              Cookie preferences
+            </button>
           </nav>
 
           <p className="text-sm text-muted-foreground">

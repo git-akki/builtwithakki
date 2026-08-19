@@ -138,6 +138,7 @@ const CaseStudyCard = ({ study, index }: { study: (typeof caseStudies)[number]; 
           Learn more
           <ChevronDown
             className={`w-3.5 h-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+            aria-hidden="true"
           />
         </button>
 

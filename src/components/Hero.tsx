@@ -51,7 +51,7 @@ const Hero = () => {
             variants={fadeInUp as unknown as Variants}
             className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-md border border-border/60 bg-card/60 mb-10 font-mono"
           >
-            <span className="relative flex h-1.5 w-1.5">
+            <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500 status-dot" />
             </span>
@@ -95,11 +95,12 @@ const Hero = () => {
               href="#case-studies"
               className="shimmer btn-premium group inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground text-sm font-medium rounded-md"
             >
-              <Zap className="w-3.5 h-3.5" />
+              <Zap className="w-3.5 h-3.5" aria-hidden="true" />
               See the work
               <motion.span
                 animate={{ x: [0, 3, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                aria-hidden="true"
               >
                 <ArrowRight className="w-3.5 h-3.5" />
               </motion.span>

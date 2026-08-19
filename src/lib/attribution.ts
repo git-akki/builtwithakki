@@ -11,6 +11,28 @@
  */
 
 const STORAGE_KEY = "bwa_attr_v1";
+const CONSENT_KEY = "bwa_consent_v1";
+
+export type ConsentStatus = "accepted" | "declined";
+
+/** Null means no decision has been made yet — the consent banner should show. */
+export function getConsentStatus(): ConsentStatus | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const v = window.localStorage.getItem(CONSENT_KEY);
+    return v === "accepted" || v === "declined" ? v : null;
+  } catch {
+    return null;
+  }
+}
+
+export function setConsentStatus(status: ConsentStatus): void {
+  try {
+    window.localStorage.setItem(CONSENT_KEY, status);
+  } catch {
+    /* Best effort — a failed write just means the banner reappears next visit. */
+  }
+}
 
 export interface Attribution {
   /** utm_source — e.g. "instagram", "linkedin" */
@@ -64,6 +86,11 @@ export function captureAttribution(): Attribution {
 
   const existing = safeRead();
   if (existing) return existing;
+
+  /* No consent yet (or declined) — capture nothing. Re-run this after the
+     consent banner is accepted; the UTM params are still in the URL for
+     the length of that page view since this is a single-page app. */
+  if (getConsentStatus() !== "accepted") return {};
 
   const params = new URLSearchParams(window.location.search);
   const captured: Attribution = {

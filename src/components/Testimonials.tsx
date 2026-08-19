@@ -63,11 +63,11 @@ const Testimonials = () => {
               variants={fadeInUp as unknown as Variants}
               className="card-elevated relative p-6 sm:p-8 bg-card rounded-lg border border-border hover:border-primary/50"
             >
-              <Quote className="absolute top-6 right-6 w-8 h-8 text-primary/20" />
+              <Quote className="absolute top-6 right-6 w-8 h-8 text-primary/20" aria-hidden="true" />
 
-              <div className="flex gap-1 mb-4">
+              <div className="flex gap-1 mb-4" role="img" aria-label={`Rated ${testimonial.rating} out of 5 stars`}>
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-primary text-primary" />
+                  <Star key={i} className="w-4 h-4 fill-primary text-primary" aria-hidden="true" />
                 ))}
               </div>
 

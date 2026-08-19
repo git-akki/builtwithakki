@@ -4,12 +4,14 @@ interface ClawBotIconProps {
   className?: string;
   size?: number;
   color?: string;
+  "aria-hidden"?: boolean | "true" | "false";
 }
 
 const ClawBotIcon = ({
   className = "",
   size = 24,
   color = "currentColor",
+  "aria-hidden": ariaHidden,
 }: ClawBotIconProps) => (
   <svg
     width={size}
@@ -18,6 +20,7 @@ const ClawBotIcon = ({
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={className}
+    aria-hidden={ariaHidden}
   >
     {/* Robot head */}
     <rect

@@ -93,7 +93,7 @@ const ServiceCard = ({ service: s }: { service: Service }) => {
         className="mt-auto -mx-1 px-1 self-start inline-flex items-center gap-1 text-xs font-medium text-primary rounded-md hover:bg-primary/10 transition-colors cursor-pointer"
       >
         Details
-        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`} aria-hidden="true" />
       </button>
 
       <AnimatePresence initial={false}>
@@ -109,7 +109,7 @@ const ServiceCard = ({ service: s }: { service: Service }) => {
             <ul className="space-y-2 mt-3">
               {s.items.map((item, j) => (
                 <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <Check className="w-3.5 h-3.5 text-primary flex-shrink-0 mt-0.5" />
+                  <Check className="w-3.5 h-3.5 text-primary flex-shrink-0 mt-0.5" aria-hidden="true" />
                   {item}
                 </li>
               ))}
