@@ -25,13 +25,13 @@ const BookCall = () => {
           whileInView="visible"
           variants={staggerContainer as unknown as Variants}
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-card via-card to-primary/5 border border-border p-8 sm:p-12 lg:p-16"
+          className="relative overflow-hidden rounded-lg bg-gradient-to-br from-card via-card to-primary/5 border border-border p-8 sm:p-12 lg:p-16"
         >
           {/* Background decoration */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
           <motion.div variants={staggerContainer as unknown as Variants} className="relative z-10 max-w-3xl">
-            <motion.div variants={fadeInUp as unknown as Variants} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 mb-6">
+            <motion.div variants={fadeInUp as unknown as Variants} className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-primary/30 bg-primary/10 mb-6">
               <Calendar className="w-4 h-4 text-primary" />
               <span className="text-sm font-medium text-primary">
                 Let's talk
@@ -52,7 +52,7 @@ const BookCall = () => {
               <motion.button
                 variants={fadeInUp as unknown as Variants}
                 onClick={handleBookingClick}
-                className="btn-premium group inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-xl"
+                className="btn-premium group inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-md"
               >
                 Schedule a Call
                 <ArrowUpRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -61,7 +61,7 @@ const BookCall = () => {
               <motion.a
                 variants={fadeInUp as unknown as Variants}
                 href="mailto:work.17akki.akash@gmail.com"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-border text-foreground font-medium rounded-xl transition-colors duration-300 hover:bg-card hover:border-primary/50"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-border text-foreground font-medium rounded-md transition-colors duration-300 hover:bg-card hover:border-primary/50"
               >
                 Or Email Me
               </motion.a>

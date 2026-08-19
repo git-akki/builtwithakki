@@ -83,7 +83,7 @@ const Hero = () => {
             className="text-lg text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed"
           >
             Web, apps, and AI agent systems — built for real clients,
-            shipped, and left running. This is that work.
+            shipped, and left running.
           </motion.p>
 
           {/* CTAs */}

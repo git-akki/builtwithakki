@@ -124,7 +124,7 @@ const Contact = () => {
                 href={link.href}
                 target={link.href.startsWith("http") ? "_blank" : undefined}
                 rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="card-elevated group p-6 bg-card rounded-xl border border-border hover:border-primary/50"
+                className="card-elevated group p-6 bg-card rounded-lg border border-border hover:border-primary/50"
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
@@ -145,7 +145,7 @@ const Contact = () => {
             variants={fadeInUp as unknown as Variants}
             viewport={{ once: true }}
             transition={{ ...smoothTransition, delay: 0.2 } as unknown as Transition}
-            className="relative p-8 bg-card rounded-2xl border border-border [box-shadow:var(--shadow-card)]"
+            className="relative p-8 bg-card rounded-lg border border-border [box-shadow:var(--shadow-card)]"
           >
             <h3 className="text-xl font-semibold mb-6">Send me a message</h3>
 

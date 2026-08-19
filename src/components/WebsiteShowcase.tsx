@@ -103,7 +103,7 @@ const TiltCard = ({ project }: { project: Project }) => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => { mx.set(0); my.set(0); setHovered(false); }}
       style={{ rotateX, rotateY, transformPerspective: 900, transformStyle: "preserve-3d" }}
-      className="group rounded-2xl border border-border/60 bg-card overflow-hidden"
+      className="group rounded-lg border border-border/60 bg-card overflow-hidden"
     >
       {/* Browser chrome */}
       <div className="border-b border-border/50 bg-muted/40 px-3 py-2.5 flex items-center gap-2">
@@ -170,7 +170,7 @@ const TiltCard = ({ project }: { project: Project }) => {
         <div className="flex items-start justify-between mb-1.5">
           <h3 className="text-sm font-semibold">{project.title}</h3>
           <span
-            className="text-[10px] font-medium px-2 py-0.5 rounded-full border"
+            className="text-[10px] font-medium px-2 py-0.5 rounded-md border"
             style={{ color: project.accentColor, borderColor: `${project.accentColor}30`, backgroundColor: `${project.accentColor}10` }}
           >
             {project.type}
@@ -207,9 +207,6 @@ const WebsiteShowcase = () => (
             Sites that sell.<br />Apps that work.
           </motion.h2>
         </div>
-        <motion.p variants={fadeInUp as unknown as Variants} className="text-sm text-muted-foreground max-w-xs">
-          Every project here is live and in active use. Hover to visit.
-        </motion.p>
       </motion.div>
 
       <motion.div

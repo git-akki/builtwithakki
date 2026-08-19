@@ -45,12 +45,9 @@ const Testimonials = () => {
           className="text-center mb-16"
         >
           <p className="text-xs font-mono text-primary uppercase tracking-[0.15em] mb-4">// testimonials.map()</p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
             What people say
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            No cherry-picked praise — this is what clients said after the work shipped.
-          </p>
         </motion.div>
 
         <motion.div
@@ -64,7 +61,7 @@ const Testimonials = () => {
             <motion.div
               key={index}
               variants={fadeInUp as unknown as Variants}
-              className="card-elevated relative p-6 sm:p-8 bg-card rounded-xl border border-border hover:border-primary/50"
+              className="card-elevated relative p-6 sm:p-8 bg-card rounded-lg border border-border hover:border-primary/50"
             >
               <Quote className="absolute top-6 right-6 w-8 h-8 text-primary/20" />
 

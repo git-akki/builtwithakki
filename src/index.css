@@ -33,7 +33,8 @@
     --input: 0 0% 91%;
     --ring: 258 80% 58%;
 
-    --radius: 0.75rem;
+    /* Editorial, not soft — square corners everywhere by default */
+    --radius: 0rem;
 
     /* Layered elevation — light: real shadows (Airbnb-style soft lift) */
     --shadow-card: 0 1px 2px hsl(0 0% 0% / 0.04), 0 4px 12px hsl(0 0% 0% / 0.06);
@@ -54,7 +55,6 @@
   :focus-visible {
     outline: 2px solid hsl(var(--ring));
     outline-offset: 2px;
-    border-radius: 4px;
   }
 
   @media (prefers-reduced-motion: reduce) {

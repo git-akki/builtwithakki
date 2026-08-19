@@ -61,7 +61,7 @@ const tools: Array<{ icon: BrandIcon; label: string; color: string }> = [
 ];
 
 const ToolPill = ({ icon, label, color }: { icon: BrandIcon; label: string; color: string }) => (
-  <div className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-border/60 bg-card/60 hover:border-border transition-colors flex-shrink-0">
+  <div className="flex items-center gap-2 px-4 py-2.5 rounded-md border border-border/60 bg-card/60 hover:border-border transition-colors flex-shrink-0">
     <svg
       viewBox="0 0 24 24"
       width="14"

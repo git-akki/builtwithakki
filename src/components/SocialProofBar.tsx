@@ -60,7 +60,7 @@ const SocialProofBar = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border/40 rounded-2xl overflow-hidden"
+        className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border/40 rounded-lg overflow-hidden"
       >
         {stats.map((s, i) => (
           <motion.div key={i} variants={fadeInUp as unknown as Variants}>

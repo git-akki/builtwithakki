@@ -72,7 +72,7 @@ const CaseStudyCard = ({ study }: { study: (typeof caseStudies)[number] }) => {
   return (
     <motion.div
       variants={fadeInUp as unknown as Variants}
-      className={`card-elevated group rounded-xl border p-6 sm:p-8 ${
+      className={`card-elevated group rounded-lg border p-6 sm:p-8 ${
         study.primary
           ? "bg-primary/5 border-primary/30 hover:border-primary/60"
           : "bg-card border-border hover:border-primary/30"
@@ -162,12 +162,9 @@ const CaseStudies = () => {
           className="text-center mb-16"
         >
           <p className="text-xs font-mono text-primary uppercase tracking-[0.15em] mb-4">// case_studies.map()</p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
             Real systems. Real numbers.
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Every project here is live, in use, and measured.
-          </p>
         </motion.div>
 
         <motion.div
