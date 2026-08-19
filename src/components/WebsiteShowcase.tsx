@@ -123,25 +123,25 @@ const TiltCard = ({ project }: { project: Project }) => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => { mx.set(0); my.set(0); setHovered(false); }}
       style={{ rotateX, rotateY, transformPerspective: 900, transformStyle: "preserve-3d" }}
-      className="group rounded-lg border border-border/60 bg-card overflow-hidden"
+      className="group rounded-lg border border-border bg-card overflow-hidden"
     >
       {/* Browser chrome */}
-      <div className="border-b border-border/50 bg-muted/40 px-3 py-2.5 flex items-center gap-2">
+      <div className="border-b border-border bg-muted/40 px-3 py-2.5 flex items-center gap-2">
         <div className="flex gap-1.5">
           <span className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
           <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/70" />
           <span className="w-2.5 h-2.5 rounded-full bg-green-400/70" />
         </div>
-        <div className="flex-1 mx-2 flex items-center gap-1.5 px-2.5 py-1 bg-background/60 rounded-md border border-border/40">
-          <span className="w-2 h-2 rounded-full border border-border/60 flex-shrink-0" />
-          <span className="text-[10px] text-muted-foreground/60 font-mono truncate">{project.displayUrl}</span>
+        <div className="flex-1 mx-2 flex items-center gap-1.5 px-2.5 py-1 bg-background/60 rounded-md border border-border">
+          <span className="w-2 h-2 rounded-full border border-border flex-shrink-0" />
+          <span className="text-[10px] text-muted-foreground font-mono truncate">{project.displayUrl}</span>
         </div>
         <a
           href={project.url}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Open ${project.title} in a new tab`}
-          className="p-1 rounded hover:bg-background/60 transition-colors text-muted-foreground/50 hover:text-foreground"
+          className="p-1 rounded hover:bg-background/60 transition-colors text-muted-foreground hover:text-foreground"
           onClick={(e) => e.stopPropagation()}
         >
           <ExternalLink className="w-3 h-3" aria-hidden="true" />
@@ -165,7 +165,7 @@ const TiltCard = ({ project }: { project: Project }) => {
             className="w-full h-full flex items-center justify-center"
             style={{ background: `linear-gradient(135deg, ${project.accentColor}15, ${project.accentColor}05)` }}
           >
-            <span className="text-xs text-muted-foreground/40 font-mono">{project.displayUrl}</span>
+            <span className="text-xs text-muted-foreground font-mono">{project.displayUrl}</span>
           </div>
         )}
 
@@ -200,7 +200,7 @@ const TiltCard = ({ project }: { project: Project }) => {
         <p className="text-xs text-muted-foreground leading-relaxed mb-3">{project.outcome}</p>
         <div className="flex flex-wrap gap-1.5">
           {project.stack.map((t) => (
-            <span key={t} className="text-[10px] px-1.5 py-0.5 rounded bg-muted/60 border border-border/40 text-muted-foreground">
+            <span key={t} className="text-[10px] px-1.5 py-0.5 rounded bg-muted/60 border border-border text-muted-foreground">
               {t}
             </span>
           ))}
@@ -211,7 +211,7 @@ const TiltCard = ({ project }: { project: Project }) => {
 };
 
 const WebsiteShowcase = () => (
-  <section id="websites" className="py-28 border-t border-border/50">
+  <section id="websites" className="py-28 border-t border-border">
     <div className="container">
       <motion.div
         initial="hidden"

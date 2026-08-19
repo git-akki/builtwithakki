@@ -29,8 +29,10 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 91%;
-    --input: 0 0% 91%;
+    /* 50% lightness clears WCAG 1.4.11's 3:1 non-text contrast minimum
+       against the 99%-lightness background (~3.9:1) — 91% only hit ~1.2:1 */
+    --border: 0 0% 50%;
+    --input: 0 0% 50%;
     --ring: 258 80% 58%;
 
     /* Editorial, not soft — square corners everywhere by default */

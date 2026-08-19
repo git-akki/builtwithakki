@@ -31,7 +31,7 @@ const BookCall = () => {
           <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
           <motion.div variants={staggerContainer as unknown as Variants} className="relative z-10 max-w-3xl">
-            <motion.div variants={fadeInUp as unknown as Variants} className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-primary/30 bg-primary/10 mb-6">
+            <motion.div variants={fadeInUp as unknown as Variants} className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-primary bg-primary/10 mb-6">
               <Calendar className="w-4 h-4 text-primary" />
               <span className="text-sm font-medium text-primary">
                 Let's talk
@@ -61,13 +61,13 @@ const BookCall = () => {
               <motion.a
                 variants={fadeInUp as unknown as Variants}
                 href="mailto:work.17akki.akash@gmail.com"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-border text-foreground font-medium rounded-md transition-colors duration-300 hover:bg-card hover:border-primary/50"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-border text-foreground font-medium rounded-md transition-colors duration-300 hover:bg-card hover:border-primary"
               >
                 Or Email Me
               </motion.a>
             </motion.div>
 
-            <motion.div variants={fadeInUp as unknown as Variants} className="mt-10 pt-8 border-t border-border/50">
+            <motion.div variants={fadeInUp as unknown as Variants} className="mt-10 pt-8 border-t border-border">
               <p className="text-sm text-muted-foreground mb-4">
                 What to expect:
               </p>

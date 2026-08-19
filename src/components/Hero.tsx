@@ -49,7 +49,7 @@ const Hero = () => {
           {/* Status readout */}
           <motion.div
             variants={fadeInUp as unknown as Variants}
-            className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-md border border-border/60 bg-card/60 mb-10 font-mono"
+            className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-md border border-border bg-card/60 mb-10 font-mono"
           >
             <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
@@ -107,7 +107,7 @@ const Hero = () => {
             </MagneticButton>
             <MagneticButton
               href="#book-call"
-              className="shimmer inline-flex items-center gap-2 px-5 py-2.5 border border-border/70 text-sm font-medium rounded-md hover:bg-card hover:border-primary/30 transition-all duration-200 text-muted-foreground hover:text-foreground"
+              className="shimmer inline-flex items-center gap-2 px-5 py-2.5 border border-border text-sm font-medium rounded-md hover:bg-card hover:border-primary transition-all duration-200 text-muted-foreground hover:text-foreground"
             >
               Get in touch
             </MagneticButton>
@@ -126,7 +126,7 @@ const Hero = () => {
             ].map(({ num, label }) => (
               <span key={num} className="flex flex-col items-center gap-0.5">
                 <span className="text-base font-semibold text-foreground tabular-nums">{num}</span>
-                <span className="text-[10px] uppercase tracking-wide text-muted-foreground/60">{label}</span>
+                <span className="text-[10px] uppercase tracking-wide text-muted-foreground">{label}</span>
               </span>
             ))}
           </motion.div>

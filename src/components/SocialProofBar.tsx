@@ -47,13 +47,13 @@ const CounterStat = ({ stat }: { stat: Stat }) => {
         {inView ? `${stat.prefix}${count}${stat.suffix}` : "—"}
       </span>
       <span className="text-sm font-medium text-foreground/70">{stat.label}</span>
-      <span className="text-xs text-muted-foreground/50 mt-0.5">{stat.sub}</span>
+      <span className="text-xs text-muted-foreground mt-0.5">{stat.sub}</span>
     </div>
   );
 };
 
 const SocialProofBar = () => (
-  <section className="py-20 border-b border-border/50">
+  <section className="py-20 border-b border-border">
     <div className="container">
       <motion.div
         variants={staggerContainer as unknown as Variants}

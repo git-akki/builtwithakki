@@ -33,7 +33,7 @@ const StickyMobileCTA = () => {
                     transition={{ duration: 0.3 }}
                     className="fixed bottom-6 left-4 right-4 z-50 md:hidden"
                 >
-                    <div className="flex items-center justify-between p-2 pl-5 bg-card/90 backdrop-blur-lg border border-primary/20 rounded-md shadow-xl shadow-primary/10">
+                    <div className="flex items-center justify-between p-2 pl-5 bg-card/90 backdrop-blur-lg border border-primary rounded-md shadow-xl shadow-primary/10">
                         <div className="flex flex-col">
 
                             <span className="text-sm font-bold text-foreground">

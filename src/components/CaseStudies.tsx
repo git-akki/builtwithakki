@@ -93,13 +93,13 @@ const CaseStudyCard = ({ study, index }: { study: (typeof caseStudies)[number]; 
     <motion.div
       variants={fadeInUp as unknown as Variants}
       className={`group grid lg:grid-cols-[1fr_320px] gap-10 lg:gap-16 items-start py-14 sm:py-16 ${
-        index !== 0 ? "border-t border-border/60" : ""
+        index !== 0 ? "border-t border-border" : ""
       }`}
     >
       {/* Left: content */}
       <div>
         <div className="flex items-center gap-3 mb-4">
-          <span className="text-xs font-mono text-primary/80 uppercase tracking-[0.1em]">
+          <span className="text-xs font-mono text-primary uppercase tracking-[0.1em]">
             {study.tag}
           </span>
           {study.primary && (
@@ -122,7 +122,7 @@ const CaseStudyCard = ({ study, index }: { study: (typeof caseStudies)[number]; 
           {study.systems.map((system) => (
             <span
               key={system}
-              className="px-2.5 py-1 text-xs font-medium rounded-md bg-background/60 border border-border/60 text-muted-foreground"
+              className="px-2.5 py-1 text-xs font-medium rounded-md bg-background/60 border border-border text-muted-foreground"
             >
               {system}
             </span>
@@ -168,7 +168,7 @@ const CaseStudyCard = ({ study, index }: { study: (typeof caseStudies)[number]; 
         </div>
         <div className="text-sm text-muted-foreground mt-2">{study.hero.label}</div>
 
-        <div className="flex gap-8 mt-8 pt-8 border-t border-border/50">
+        <div className="flex gap-8 mt-8 pt-8 border-t border-border">
           {study.secondary.map((metric, i) => (
             <div key={i}>
               <div className="text-xl font-semibold tabular-nums">{metric.value}</div>

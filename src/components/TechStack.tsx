@@ -61,7 +61,7 @@ const tools: Array<{ icon: BrandIcon; label: string; color: string }> = [
 ];
 
 const ToolPill = ({ icon, label, color }: { icon: BrandIcon; label: string; color: string }) => (
-  <div className="flex items-center gap-2 px-4 py-2.5 rounded-md border border-border/60 bg-card/60 hover:border-border transition-colors flex-shrink-0">
+  <div className="flex items-center gap-2 px-4 py-2.5 rounded-md border border-border bg-card/60 hover:border-primary transition-colors flex-shrink-0">
     <svg
       viewBox="0 0 24 24"
       width="14"
@@ -83,8 +83,8 @@ const TechStack = () => {
   const doubled = [...tools, ...tools];
 
   return (
-    <div className="py-14 border-b border-border/50 overflow-hidden">
-      <p className="text-center text-xs font-medium text-muted-foreground/40 uppercase tracking-[0.2em] mb-8">
+    <div className="py-14 border-b border-border overflow-hidden">
+      <p className="text-center text-xs font-medium text-muted-foreground uppercase tracking-[0.2em] mb-8">
         Works with your existing stack
       </p>
       <div className="relative">

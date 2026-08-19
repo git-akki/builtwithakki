@@ -61,7 +61,7 @@ const Testimonials = () => {
             <motion.div
               key={index}
               variants={fadeInUp as unknown as Variants}
-              className="card-elevated relative p-6 sm:p-8 bg-card rounded-lg border border-border hover:border-primary/50"
+              className="card-elevated relative p-6 sm:p-8 bg-card rounded-lg border border-border hover:border-primary"
             >
               <Quote className="absolute top-6 right-6 w-8 h-8 text-primary/20" aria-hidden="true" />
 

@@ -130,7 +130,7 @@ const Contact = () => {
                 href={link.href}
                 target={link.href.startsWith("http") ? "_blank" : undefined}
                 rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="card-elevated group p-6 bg-card rounded-lg border border-border hover:border-primary/50"
+                className="card-elevated group p-6 bg-card rounded-lg border border-border hover:border-primary"
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">

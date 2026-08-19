@@ -56,13 +56,13 @@ const ServiceCard = ({ service: s }: { service: Service }) => {
       variants={fadeInUp as unknown as Variants}
       className={`card-elevated relative flex flex-col rounded-lg border p-6 group ${
         s.accent
-          ? "border-primary/25 bg-primary/[0.03] hover:border-primary/45"
-          : "border-border/60 bg-card hover:border-primary/25"
+          ? "border-primary bg-primary/[0.03] hover:border-primary"
+          : "border-border bg-card hover:border-primary"
       }`}
     >
       {/* Module header row: id + status */}
       <div className="flex items-center justify-between mb-6">
-        <span className="text-[10px] font-mono text-muted-foreground/50 tracking-wide">{s.id}</span>
+        <span className="text-[10px] font-mono text-muted-foreground tracking-wide">{s.id}</span>
         <span
           className={`inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wide px-2 py-0.5 rounded-md ${
             s.accent ? "text-primary bg-primary/10" : "text-muted-foreground bg-muted"
@@ -84,7 +84,7 @@ const ServiceCard = ({ service: s }: { service: Service }) => {
       </div>
 
       <h3 className="text-lg font-semibold mb-2 leading-snug">{s.title}</h3>
-      <p className="text-[11px] font-mono text-muted-foreground/70 tabular-nums mb-5">{s.proof}</p>
+      <p className="text-[11px] font-mono text-muted-foreground tabular-nums mb-5">{s.proof}</p>
 
       <button
         type="button"

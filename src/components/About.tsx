@@ -32,7 +32,7 @@ const beliefs = [
 ];
 
 const About = () => (
-  <section id="about" className="py-28 border-t border-border/50">
+  <section id="about" className="py-28 border-t border-border">
     <div className="container">
       <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
 
@@ -95,8 +95,8 @@ const About = () => (
                 <div className="relative flex-shrink-0 mt-1">
                   <div className={`w-[38px] h-[38px] rounded-full border flex items-center justify-center text-[10px] font-bold tabular-nums ${
                     m.year === "Now"
-                      ? "bg-primary/10 border-primary/30 text-primary"
-                      : "bg-card border-border/60 text-muted-foreground"
+                      ? "bg-primary/10 border-primary text-primary"
+                      : "bg-card border-border text-muted-foreground"
                   }`}>
                     {m.year === "Now" ? "NOW" : `'${m.year.slice(2)}`}
                   </div>
