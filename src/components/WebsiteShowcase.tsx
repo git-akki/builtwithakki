@@ -75,6 +75,26 @@ const projects: Project[] = [
     outcome: "Premium grooming store shipping across Switzerland",
     accentColor: "#EF4444",
   },
+  {
+    title: "Fairy Dalia",
+    url: "https://fairydalia.com",
+    displayUrl: "fairydalia.com",
+    screenshot: "/screenshots/fairy-dalia.jpg",
+    type: "E-Commerce",
+    stack: ["WooCommerce", "WordPress"],
+    outcome: "Migrated off Shopify — running cost cut from $60/mo to $5/mo, same functionality and data",
+    accentColor: "#06B6D4",
+  },
+  {
+    title: "Jason Milne",
+    url: "https://jasonmilne.com",
+    displayUrl: "jasonmilne.com",
+    screenshot: "/screenshots/jason-milne.jpg",
+    type: "Coaching Platform",
+    stack: ["TypeScript", "TidyCal", "Stripe"],
+    outcome: "Discovery calls and payments built in — TidyCal scheduling, Stripe checkout",
+    accentColor: "#4F46E5",
+  },
 ];
 
 const TiltCard = ({ project }: { project: Project }) => {

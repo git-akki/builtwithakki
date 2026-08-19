@@ -1,5 +1,5 @@
 import { motion, AnimatePresence, Variants, Transition } from "framer-motion";
-import { Mail, Linkedin, Github, ArrowUpRight, Check } from "lucide-react";
+import { Mail, Linkedin, Github, Instagram, ArrowUpRight, Check } from "lucide-react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { fadeInUp, staggerContainer, smoothTransition } from "../utils/animations";
@@ -46,6 +46,12 @@ const Contact = () => {
       label: "GitHub",
       value: "github.com/git-akki",
       href: "https://github.com/git-akki",
+    },
+    {
+      icon: Instagram,
+      label: "Instagram",
+      value: "@yadev.akashh",
+      href: "https://instagram.com/yadev.akashh",
     },
   ];
 
